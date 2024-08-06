@@ -8,26 +8,25 @@ import { ReactComponent as Upboxuparrow } from "../svg/uparrow.svg";
 import { Link, useNavigate } from "react-router-dom";
 import html2pdf from "html2pdf.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setDate, setSeatNumber } from "../Slice/redux";
+import { setDate, setSortdata } from "../Slice/redux";
 import "dayjs/locale/de";
 
-function Homepage() {
+const Homepage = () => {
   const [display, setDisplay] = useState(false);
   const [tooltipId, setTooltipId] = useState(null);
+  const [data, setData] = useState([]);
+  const [sortdata, setSortdata] = useState([]); // State to store fetched data
   const tooltipRef = useRef(null);
   const buttonRefs = useRef([]);
-  const Navigate = useNavigate();
-  const inputs = useSelector((state) => state.inputs);
   const dispatch = useDispatch();
-
-  const formatDate = (date) => {
-    if (!date) return "";
-    const formattedDate = new Date(date);
-    const year = formattedDate.getFullYear();
-    const month = String(formattedDate.getMonth() + 1).padStart(2, "0");
-    const day = String(formattedDate.getDate()).padStart(2, "0");
-    return `${day}-${month}-${year}`;
-  };
+  const navigate = useNavigate();
+  const editapi = "https://busbackend.vercel.app/seats/update/";
+  const deleteapi = "http://localhost:3001/seats/delete/";
+  const addapi = "http://localhost:3001/seats/create";
+  const searchapi = "http://localhost:3001/seats/search";
+  const readapi = "http://localhost:3001/seats/read";
+  console.log(data);
+  console.log(sortdata);
   const handleClickOutside = useCallback((event) => {
     if (
       tooltipRef.current &&
@@ -53,276 +52,91 @@ function Homepage() {
     [tooltipId]
   );
 
-  const handleDownload = () => {
-    // Create a new div element
-    const element = document.createElement("div");
-    element.innerHTML = `
-      <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bus Seating Plan</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-
-<body class="font-sans">
-    <div class="container mx-auto max-w-4xl p-4">
-        <div class="flex justify-between">
-            <div class="w-1/2 pr-2">
-                <table class="min-w-full border-collapse border border-black mb-4">
-                    <thead>
-                        <tr>
-                            <th class="border border-black bg-red-500 text-white p-2">નીચે</th>
-                            <th class="border border-black bg-red-500 text-white p-2">ઉપર</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="w-1/2 pl-2">
-                <table class="min-w-full border-collapse border border-black mb-4">
-                    <thead>
-                        <tr>
-                            <th class="border border-black bg-red-500 text-white p-2">નીચે</th>
-                            <th class="border border-black bg-red-500 text-white p-2">ઉપર</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                            <td class="border border-black p-2 text-center">
-                                <div class="font-extrabold text-xl">A</div>
-                                <div>jasdan</div>
-                                <div>office</div>
-                                <div>8141415252</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-        <table class="w-full">
-            <tbody>
-                <tr>
-                    <td class="border border-black p-2 text-center w-1/6">1</td>
-                    <td class="border border-black p-2 text-center"></td>
-                </tr>
-                <tr>
-                    <td class="border border-black p-2 text-center">2</td>
-                    <td class="border border-black p-2 text-center"></td>
-                <tr>
-                    <td class="border border-black p-2 text-center">3</td>
-                    <td class="border border-black p-2 text-center"></td>
-                </tr>
-                <tr>
-                    <td class="border border-black p-2 text-center">4</td>
-                    <td class="border border-black p-2 text-center"></td>
-                </tr>
-                <tr>
-                    <td class="border border-black p-2 text-center">5</td>
-                    <td class="border border-black p-2 text-center"></td>
-                </tr>
-                <tr>
-                    <td class="border border-black p-2 text-center">6</td>
-                    <td class="border border-black p-2 text-center"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</body>
-
-</html>`;
-
-    // Convert the HTML content to PDF
-    html2pdf()
-      .from(element)
-      .toPdf()
-      .get("pdf")
-      .then(function (pdf) {
-        pdf.save("shaktidham.pdf");
-      });
-  };
   const getLabel = (index) => {
     const alphabet = "ABCDEFGHIJKL";
     if (index < 12) {
       return alphabet[index];
     } else {
-      // Calculate the pair of numbers
       const pairIndex = index - 12;
       const firstNumber = pairIndex * 2 + 1;
       const secondNumber = firstNumber + 1;
       return `${firstNumber},${secondNumber}`;
     }
   };
-  const handleEditClick = (seatno) => {
-    // localStorage.setItem("seatno", seatno);
-    dispatch(setSeatNumber(seatno));
-    Navigate("/form");
-  };
-  const handleDateChange = (date) => {
-    dispatch(setDate(date)); // Dispatch the action to set the date
+
+  const handleEditClick = useCallback(
+    (id) => {
+      const itemToEdit = data.find((item) => item._id === id);
+      navigate("/form", {
+        state: { itemToEdit },
+      });
+    },
+    [navigate, data]
+  );
+
+  const handleDateChange = useCallback(
+    async (date) => {
+      dispatch(setDate(date));
+
+      if (date) {
+        const formattedDate = date.toISODate();
+        console.log(formattedDate); // Format the date to yyyy-mm-dd
+        try {
+          const response = await fetch(`${searchapi}?Date=${formattedDate}`);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const result = await response.json();
+          setSortdata(result);
+        } catch (error) {
+          console.error("Fetch operation error:", error);
+        }
+      }
+    },
+    [dispatch]
+  );
+
+  const handleDelete = useCallback(async (id) => {
+    try {
+      const response = await fetch(`${deleteapi}${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      await response.json();
+    } catch (error) {
+      console.error("Fetch operation error:", error);
+    }
+  }, []);
+
+  // const fetchData = useCallback(async () => {
+  //   try {
+  //     const response = await fetch(readapi);
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+  //     const result = await response.json();
+  //     setData(result);
+  //   } catch (error) {
+  //     console.error("Fetch operation error:", error);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   fetchData(); // Fetch data when component mounts
+  // }, [fetchData]);
+
+  const handleDownload = () => {
+    const element = document.getElementById("table-container");
+    const opt = {
+      margin: 1,
+      filename: "table.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    };
+    html2pdf().set(opt).from(element).save();
   };
 
   return (
@@ -334,7 +148,6 @@ function Homepage() {
             adapterLocale="en-gb"
           >
             <DatePicker
-              // Bind the selected date to the date picker
               onChange={handleDateChange} // Handle date change
               renderInput={(params) => (
                 <TextField
@@ -355,19 +168,16 @@ function Homepage() {
           </LocalizationProvider>
         </div>
         <div>
-          {/* <Link to="/form"> */}
           <button
-            className="bg-[#8A6FDF] text-white px-4 py-2 rounded hover:bg-[#7451f2] mt-2 "
-            on
+            className="bg-[#8A6FDF] text-white px-4 py-2 rounded hover:bg-[#7451f2] mt-2"
             onClick={handleDownload}
           >
             Download
           </button>
-          {/* </Link> */}
         </div>
       </div>
 
-      <div className="flex-1 overflow-x-auto">
+      <div className="flex-1 overflow-x-auto" id="table-container">
         <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
           <thead className="bg-gray-100">
             <tr>
@@ -379,23 +189,23 @@ function Homepage() {
             </tr>
           </thead>
           <tbody>
-            {[...Array(24).keys()].map((_, index) => (
-              <tr key={index} className="hover:bg-gray-50">
+            {sortdata?.data?.map((item, index) => (
+              <tr key={item._id} className="hover:bg-gray-50">
                 <td className="text-center py-5 border">{getLabel(index)}</td>
-                <td className="p-2 border">jasdan</td>
-                <td className="p-2 border">officesssssssssssss</td>
-                <td className="p-2 border">8141415252</td>
+                <td className="p-2 border">{item.village}</td>
+                <td className="p-2 border">{item.name}</td>
+                <td className="p-2 border">{item.phone}</td>
                 <td className="relative border">
                   <button
                     className="ml-4 hover:text-blue-900"
-                    onClick={() => handleClicktd(index)}
+                    onClick={() => handleClicktd(item._id)}
                     ref={(el) => (buttonRefs.current[index] = el)}
                   >
                     <div className="flex justify-center">
                       <Action className="w-6 h-6 text-blue-500" />
                     </div>
                   </button>
-                  {display && tooltipId === index && (
+                  {display && tooltipId === item._id && (
                     <div
                       role="tooltip"
                       className="absolute shadow-lg bg-blue-400 z-10 border rounded p-2"
@@ -411,17 +221,15 @@ function Homepage() {
                       </div>
                       <div className="flex flex-col">
                         <ul className="space-y-2">
-                          {/* <Link to={"/form"}> */}
                           <li
                             className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
-                            onClick={() => handleEditClick(getLabel(index))}
+                            onClick={() => handleEditClick(item._id)}
                           >
-                            Edit
+                            {item.name ? "Edit" : "Add"}
                           </li>
-                          {/* </Link> */}
                           <li
                             className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
-                            // onClick={() => handleDelete(row._id)}
+                            onClick={() => handleDelete(item._id)}
                           >
                             Delete
                           </li>
@@ -437,6 +245,6 @@ function Homepage() {
       </div>
     </div>
   );
-}
+};
 
 export default Homepage;
