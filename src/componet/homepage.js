@@ -87,6 +87,7 @@ const Homepage = () => {
             throw new Error("Network response was not ok");
           }
           const result = await response.json();
+          console.log(result, "result");
           setSortdata(result);
         } catch (error) {
           console.error("Fetch operation error:", error);
@@ -126,7 +127,7 @@ const Homepage = () => {
   // useEffect(() => {
   //   fetchData(); // Fetch data when component mounts
   // }, [fetchData]);
-
+  console.log(getLabel(0));
   const handleDownload = () => {
     const element = document.getElementById("table-container");
     const opt = {
@@ -189,57 +190,68 @@ const Homepage = () => {
             </tr>
           </thead>
           <tbody>
-            {sortdata?.data?.map((item, index) => (
-              <tr key={item._id} className="hover:bg-gray-50">
-                <td className="text-center py-5 border">{getLabel(index)}</td>
-                <td className="p-2 border">{item.village}</td>
-                <td className="p-2 border">{item.name}</td>
-                <td className="p-2 border">{item.phone}</td>
-                <td className="relative border">
-                  <button
-                    className="ml-4 hover:text-blue-900"
-                    onClick={() => handleClicktd(item._id)}
-                    ref={(el) => (buttonRefs.current[index] = el)}
-                  >
-                    <div className="flex justify-center">
-                      <Action className="w-6 h-6 text-blue-500" />
-                    </div>
-                  </button>
-                  {display && tooltipId === item._id && (
-                    <div
-                      role="tooltip"
-                      className="absolute shadow-lg bg-blue-400 z-10 border rounded p-2"
-                      style={{
-                        top: "100%",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                      }}
-                      ref={tooltipRef}
-                    >
-                      <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                        <Upboxuparrow className="w-4 h-4 text-blue-400" />
-                      </div>
-                      <div className="flex flex-col">
-                        <ul className="space-y-2">
-                          <li
-                            className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
-                            onClick={() => handleEditClick(item._id)}
-                          >
-                            {item.name ? "Edit" : "Add"}
-                          </li>
-                          <li
-                            className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
-                            onClick={() => handleDelete(item._id)}
-                          >
-                            Delete
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  )}
-                </td>
-              </tr>
-            ))}
+            {[...Array(24).keys()].map((i) => {
+              const currentLabel = getLabel(i).toString();
+              const item = sortdata.data?.find(
+                (item) => item.seatNumber === currentLabel
+              );
+              console.log(item, "item");
+              return (
+                <tr key={i} className="hover:bg-gray-50">
+                  <td className="text-center py-5 border">{currentLabel}</td>
+
+                  <td className="p-2 border">{item ? item.vilage : ""}</td>
+
+                  <td className="p-2 border">{item ? item.name : ""}</td>
+                  <td className="p-2 border">{item ? item.name : ""}</td>
+                  <td className="relative border">
+                    <>
+                      <button
+                        className="ml-4 hover:text-blue-900"
+                        onClick={() => handleClicktd(item._id)}
+                        ref={(el) => (buttonRefs.current[i] = el)}
+                      >
+                        <div className="flex justify-center">
+                          <Action className="w-6 h-6 text-blue-500" />
+                        </div>
+                      </button>
+                      {display && tooltipId === item._id && (
+                        <div
+                          role="tooltip"
+                          className="absolute shadow-lg bg-blue-400 z-10 border rounded p-2"
+                          style={{
+                            top: "100%",
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                          }}
+                          ref={tooltipRef}
+                        >
+                          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                            <Upboxuparrow className="w-4 h-4 text-blue-400" />
+                          </div>
+                          <div className="flex flex-col">
+                            <ul className="space-y-2">
+                              <li
+                                className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
+                                onClick={() => handleEditClick(item._id)}
+                              >
+                                {item.vilage ? "Edit" : "Add"}
+                              </li>
+                              <li
+                                className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
+                                onClick={() => handleDelete(item._id)}
+                              >
+                                Delete
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
