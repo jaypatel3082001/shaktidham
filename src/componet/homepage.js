@@ -374,6 +374,7 @@ function Homepage() {
               <th className="p-2 border-b">Number</th>
               <th className="p-2 border-b">Village</th>
               <th className="p-2 border-b">Name</th>
+              <th className="p-2 border-b">Phone No.</th>
               <th className="p-2 border-b">Action</th>
             </tr>
           </thead>
@@ -383,7 +384,7 @@ function Homepage() {
                 <td className="text-center py-5 border">{getLabel(index)}</td>
                 <td className="p-2 border">jasdan</td>
                 <td className="p-2 border">officesssssssssssss</td>
-
+                <td className="p-2 border">8141415252</td>
                 <td className="relative border">
                   <button
                     className="ml-4 hover:text-blue-900"
