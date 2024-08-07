@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 import Homepage from "./componet/homepage";
 import BookinForm from "./componet/form";
-import store from "./store";
 
 function App() {
   return (

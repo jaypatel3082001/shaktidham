@@ -538,8 +538,8 @@ const Homepage = () => {
               <table class="min-w-full border-collapse border border-black">
                 <thead>
                   <tr>
-                    <th class="bg-red-500 text-white p-2">नीचे</th>
-                    <th class="bg-red-500 text-white p-2">ऊपर</th>
+                    <th class="bg-red-500 text-white p-2">નીચે  </th>
+                    <th class="bg-red-500 text-white p-2">ઉપર</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -551,8 +551,8 @@ const Homepage = () => {
               <table class="min-w-full border-collapse border border-black">
                 <thead>
                   <tr>
-                    <th class="bg-red-500 text-white p-2">नीचे</th>
-                    <th class="bg-red-500 text-white p-2">ऊपर</th>
+                    <th class="bg-red-500 text-white p-2">નીચે</th>
+                    <th class="bg-red-500 text-white p-2">ઉપર</th>
                   </tr>
                 </thead>
                 <tbody>
