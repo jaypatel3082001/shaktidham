@@ -70,8 +70,8 @@ function Form() {
 
     try {
       const endpoint = itemToEdit
-        ? `http://localhost:3001/seats/update/${itemToEdit._id}`
-        : "http://localhost:3001/seats/create";
+        ? `https://busbackend.vercel.app/seats/update/${itemToEdit._id}`
+        : "https://busbackend.vercel.app/seats/create";
       const method = itemToEdit ? "PUT" : "POST";
 
       const response = await fetch(endpoint, {
@@ -142,7 +142,7 @@ function Form() {
             Mobile No:
           </label>
           <input
-            type="text"
+            type="number"
             id="mobile"
             name="mobile"
             onChange={handleChange}
