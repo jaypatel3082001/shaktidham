@@ -8,8 +8,9 @@ import { ReactComponent as Upboxuparrow } from "../svg/uparrow.svg";
 import { useNavigate } from "react-router-dom";
 import html2pdf from "html2pdf.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setDate, setSeatNumber } from "../Slice/redux";
+import { setDate, setSeatNumber,setPopbox } from "../Slice/redux";
 import { keyboardImplementationWrapper } from "@testing-library/user-event/dist/keyboard";
+import Showbusnumber from "./showbusnumber";
 
 const Homepage = () => {
   const [display, setDisplay] = useState(false);
@@ -21,6 +22,7 @@ const Homepage = () => {
   const buttonRefs = useRef([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const[popbox,setPopbox]=useState(false);
   const inputs = useSelector((state) => state.inputs);
   const deleteapi = "https://busbackend.vercel.app/seats/delete/";
   const searchapi = "https://busbackend.vercel.app/seats/search";
@@ -333,7 +335,15 @@ const Homepage = () => {
       window.open(url, '_blank');
     });
   };
-  
+  console.log(inputs.Tablemanuplation.openpop,"inputs.Tablemanuplation.openpop");
+  const showQuestion = useCallback(
+    () => {
+     console.log(inputs.Tablemanuplation.openpop,"inputs.Tablemanuplation.openpop");
+    setPopbox(!popbox);
+
+      // localStorage.setItem("QuizeId", id);
+    },
+    )
   return (
     <div className="App p-4 md:p-6 lg:p-8 flex flex-col md:flex-row gap-4">
       <div className="flex justify-between">
@@ -374,9 +384,9 @@ const Homepage = () => {
           </button>
           <button
             className="bg-[#8A6FDF] text-white px-4 py-2 rounded hover:bg-[#7451f2] mt-2"
-            onClick={handleSendWhatsApp}
+            onClick={showQuestion}
           >
-            send
+            Add
           </button>
         </div>
       </div>
@@ -467,6 +477,7 @@ const Homepage = () => {
           </table>
         )}
       </div>
+      <Showbusnumber showQuestion={showQuestion} popbox={popbox} />
     </div>
   );
 };

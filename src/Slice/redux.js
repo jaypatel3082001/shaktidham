@@ -4,6 +4,7 @@ const initialState = {
   Tablemanuplation: {
     seatnumber: null,
     date: null,
+    openpop:false,
   },
 };
 const InputSlice = createSlice({
@@ -16,11 +17,14 @@ const InputSlice = createSlice({
     setDate: (state, action) => {
       state.Tablemanuplation.date = action.payload;
     },
+    setPopbox: (state, action) => {
+      state.Tablemanuplation.date = action.payload;
+    },
   },
 });
 
 // Export actions
-export const { setSeatNumber, setDate } = InputSlice.actions;
+export const { setSeatNumber, setDate,setPopbox } = InputSlice.actions;
 
 // Export reducer
 export default InputSlice.reducer;
