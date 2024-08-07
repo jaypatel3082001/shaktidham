@@ -127,7 +127,466 @@ const Homepage = () => {
     },
     [handleDateChange, inputs.Tablemanuplation.date, deleteapi]
   );
+  // const handleDownload = () => {
+  //   // Sample data, replace this with your actual data source
+  //   const labels = [
+  //     ["A", "B"],
+  //     ["C", "D"],
+  //     ["E", "F"],
+  //     ["G", "H"],
+  //     ["I", "J"],
+  //     ["K", "L"],
+  //   ];
 
+  //   const number = [
+  //     ["1.2", "3.4"],
+  //     ["5.6", "7.8"],
+  //     ["9.10", "11.12"],
+  //     ["13.14", "15.16"],
+  //     ["17.18", "19.20"],
+  //     ["21.22", "23.24"],
+  //   ];
+
+  //   // Mock data source
+  //   const sortdatas = {
+  //     data: [
+  //       {
+  //         seatNumber: "A",
+  //         name: "Alice",
+  //         village: "Village1",
+  //         mobile: "1234567890",
+  //       },
+  //       {
+  //         seatNumber: "B",
+  //         name: "Bob",
+  //         village: "Village2",
+  //         mobile: "2345678901",
+  //       },
+  //       // ... add other data entries as needed
+  //     ],
+  //   };
+
+  //   // Function to generate table rows
+  //   const generateTableRows = (labelList) => {
+  //     return labelList
+  //       .map((labelPair) => {
+  //         const items = labelPair.map((seatNumber) => {
+  //           return sortdatas.data.find(
+  //             (item) => item.seatNumber === seatNumber
+  //           );
+  //         });
+
+  //         return `
+  //           <tr>
+  //             ${items
+  //               .map(
+  //                 (item) => `
+  //               <td class="border border-black p-2 text-center">
+  //                 ${
+  //                   item
+  //                     ? `
+  //                   <div class="font-extrabold text-xl">${item.seatNumber}</div>
+  //                   <div>${item.name}</div>
+  //                   <div>${item.village}</div>
+  //                   <div>${item.mobile}</div>
+  //                 `
+  //                     : `
+  //                   <div class="font-extrabold text-xl">${labelPair[0]}</div>
+  //                   <div></div>
+  //                   <div></div>
+  //                   <div></div>
+  //                 `
+  //                 }
+  //               </td>
+  //             `
+  //               )
+  //               .join("")}
+  //           </tr>
+  //         `;
+  //       })
+  //       .join("");
+  //   };
+
+  //   // Generate rows for the tables
+  //   const firstTableRows = generateTableRows(labels);
+  //   const secondTableRows = generateTableRows(number);
+
+  //   // Create a new div element
+  //   const element = document.createElement("div");
+
+  //   // Set the HTML content
+  //   element.innerHTML = `
+  //     <html lang="en">
+  //     <head>
+  //       <meta charset="UTF-8">
+  //       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  //       <title>Bus Seating Plan</title>
+  //       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  //       <style>
+  //         @page {
+  //           size: A4;
+  //           margin: 0;
+  //         }
+  //         body {
+  //           margin: 0;
+  //           padding: 0;
+  //         }
+  //         .container {
+  //           width: 100%;
+  //           height: 100%;
+  //         }
+  //         table {
+  //           width: 100%;
+  //           border-collapse: collapse;
+  //         }
+  //         td {
+  //           width: 25%;
+  //           height: 100px;
+  //           vertical-align: top;
+  //         }
+  //         th, td {
+  //           border: 1px solid black;
+  //         }
+  //       </style>
+  //     </head>
+  //     <body class="font-sans">
+  //       <div class="container mx-auto max-w-4xl p-4">
+  //         <div class="flex justify-between">
+  //           <div class="w-1/2 pr-2">
+  //             <table class="min-w-full mb-4">
+  //               <thead>
+  //                 <tr>
+  //                   <th class="bg-red-500 text-white p-2">नीचे</th>
+  //                   <th class="bg-red-500 text-white p-2">ऊपर</th>
+  //                 </tr>
+  //               </thead>
+  //               <tbody>
+  //                 ${firstTableRows}
+  //               </tbody>
+  //             </table>
+  //           </div>
+  //           <div class="w-1/2 pl-2">
+  //             <table class="min-w-full mb-4">
+  //               <thead>
+  //                 <tr>
+  //                   <th class="bg-red-500 text-white p-2">नीचे</th>
+  //                   <th class="bg-red-500 text-white p-2">ऊपर</th>
+  //                 </tr>
+  //               </thead>
+  //               <tbody>
+  //                 ${secondTableRows}
+  //               </tbody>
+  //             </table>
+  //           </div>
+  //         </div>
+  //         <table>
+  //           <tbody>
+  //             <tr><td class="border border-black p-2 text-center w-1/6">1</td><td class="border border-black p-2 text-center"></td></tr>
+  //             <tr><td class="border border-black p-2 text-center">2</td><td class="border border-black p-2 text-center"></td></tr>
+  //             <tr><td class="border border-black p-2 text-center">3</td><td class="border border-black p-2 text-center"></td></tr>
+  //             <tr><td class="border border-black p-2 text-center">4</td><td class="border border-black p-2 text-center"></td></tr>
+  //             <tr><td class="border border-black p-2 text-center">5</td><td class="border border-black p-2 text-center"></td></tr>
+  //             <tr><td class="border border-black p-2 text-center">6</td><td class="border border-black p-2 text-center"></td></tr>
+  //           </tbody>
+  //         </table>
+  //       </div>
+  //     </body>
+  //     </html>
+  //   `;
+
+  //   // Convert the HTML content to PDF
+  //   html2pdf()
+  //     .from(element)
+  //     .toPdf()
+  //     .get("pdf")
+  //     .then((pdf) => {
+  //       pdf.autoPrint(); // Optional: automatically open the print dialog
+  //       pdf.save("shaktidham.pdf"); // Save the PDF
+  //     });
+  // };
+  // const handleDownload = () => {
+  //   const labels = [
+  //     ["A", "B"],
+  //     ["C", "D"],
+  //     ["E", "F"],
+  //     ["G", "H"],
+  //     ["I", "J"],
+  //     ["K", "L"],
+  //   ];
+
+  //   const number = [
+  //     ["1.2", "3.4"],
+  //     ["5.6", "7.8"],
+  //     ["9.10", "11.12"],
+  //     ["13.14", "15.16"],
+  //     ["17.18", "19.20"],
+  //     ["21.22", "23.24"],
+  //   ];
+
+  //   const generateTableRows = (labelList) => {
+  //     return labelList
+  //       .map((labelPair) => {
+  //         // Extract items for each seat number in the pair
+  //         const items = labelPair.map((seatNumber) => {
+  //           return sortdata.data.find((item) => item.seatNumber === seatNumber);
+  //         });
+
+  //         return `
+  //           <tr>
+  //             ${labelPair
+  //               .map((seatNumber, index) => {
+  //                 const item = items[index]; // Use the item corresponding to the seatNumber
+  //                 return `
+  //                 <td class="border border-black p-2 text-center ">
+  //                   ${
+  //                     item
+  //                       ? `
+  //                     <div class="font-extrabold text-xl">${item.seatNumber}</div>
+  //                     <div>${item.name}</div>
+  //                     <div>${item.vilage}</div>
+  //                     <div>${item.mobile}</div>
+  //                   `
+  //                       : `
+  //                     <div class="font-extrabold text-xl">${seatNumber}</div>
+  //                     <div></div>
+  //                     <div></div>
+  //                     <div></div>
+  //                   `
+  //                   }
+  //                 </td>
+  //               `;
+  //               })
+  //               .join("")}
+  //           </tr>
+  //         `;
+  //       })
+  //       .join("");
+  //   };
+
+  //   const firstTableRows = generateTableRows(labels);
+  //   const secondTableRows = generateTableRows(number);
+
+  //   const element = document.createElement("div");
+
+  //   element.innerHTML = `
+  //     <html lang="en">
+  //     <head>
+  //       <meta charset="UTF-8">
+  //       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  //       <title>Bus Seating Plan</title>
+  //       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  //       <style>
+  //         @page {
+  //           size: A4;
+  //           margin: 0;
+  //         }
+  //         body {
+  //           margin: 0;
+  //           padding: 0;
+  //         }
+  //         .container {
+  //           width: 100%;
+  //           height: 100%;
+  //         }
+  //         table {
+  //           width: 100%;
+  //           border-collapse: collapse;
+  //         }
+  //         td {
+  //           width: 25%;
+  //           height: 100px;
+  //           vertical-align: top;
+  //         }
+  //         th, td {
+  //           border: 1px solid black;
+  //         }
+  //       </style>
+  //     </head>
+  //     <body class="font-sans">
+  //       <div class="container mx-auto max-w-4xl p-4">
+  //         <div class="flex justify-between">
+  //           <div class="w-1/2 pr-2">
+  //             <table class="min-w-full mb-4">
+  //               <thead>
+  //                 <tr>
+  //                   <th class="bg-red-500 text-white p-2">नीचे</th>
+  //                   <th class="bg-red-500 text-white p-2">ऊपर</th>
+  //                 </tr>
+  //               </thead>
+  //               <tbody>
+  //                 ${firstTableRows}
+  //               </tbody>
+  //             </table>
+  //           </div>
+  //           <div class="w-1/2 pl-2">
+  //             <table class="min-w-full mb-4">
+  //               <thead>
+  //                 <tr>
+  //                   <th class="bg-red-500 text-white p-2">नीचे</th>
+  //                   <th class="bg-red-500 text-white p-2">ऊपर</th>
+  //                 </tr>
+  //               </thead>
+  //               <tbody>
+  //                 ${secondTableRows}
+  //               </tbody>
+  //             </table>
+  //           </div>
+  //         </div>
+  //         <table>
+  //           <tbody>
+  //             <tr><td class="border border-black p-2 text-center w-1/6 h-5">1</td><td class=" h-5 border border-black p-2 text-center"></td></tr>
+  //             <tr><td class="border border-black p-2 text-center">2</td><td class="border border-black p-2 text-center"></td></tr>
+  //             <tr><td class="border border-black p-2 text-center">3</td><td class="border border-black p-2 text-center"></td></tr>
+  //             <tr><td class="border border-black p-2 text-center">4</td><td class="border border-black p-2 text-center"></td></tr>
+  //             <tr><td class="border border-black p-2 text-center">5</td><td class="border border-black p-2 text-center"></td></tr>
+  //             <tr><td class="border border-black p-2 text-center">6</td><td class="border border-black p-2 text-center"></td></tr>
+  //           </tbody>
+  //         </table>
+  //       </div>
+  //     </body>
+  //     </html>
+  //   `;
+
+  //   html2pdf()
+  //     .from(element)
+  //     .toPdf()
+  //     .get("pdf")
+  //     .then((pdf) => {
+  //       pdf.autoPrint(); // Optional: automatically open the print dialog
+  //       pdf.save("shaktidhams.pdf"); // Save the PDF
+  //     });
+  // };
+  const handleDownload = () => {
+    // Data for table labels and numbers
+    const labels = [
+      ["A", "B"],
+      ["C", "D"],
+      ["E", "F"],
+      ["G", "H"],
+      ["I", "J"],
+      ["K", "L"],
+    ];
+
+    const number = [
+      ["1.2", "3.4"],
+      ["5.6", "7.8"],
+      ["9.10", "11.12"],
+      ["13.14", "15.16"],
+      ["17.18", "19.20"],
+      ["21.22", "23.24"],
+    ];
+
+    // Function to generate table rows from labels or numbers
+    const generateTableRows = (dataList) => {
+      return dataList
+        .map((pair) => {
+          const items = pair.map((seatNumber) => {
+            return sortdata.data.find((item) => item.seatNumber === seatNumber);
+          });
+
+          return `
+            <tr>
+              ${pair
+                .map((seatNumber, index) => {
+                  const item = items[index];
+                  return `
+                    <td class="border border-black p-2 text-center h-28 w-28  ">
+                      ${
+                        item
+                          ? `
+                        <div class="font-bold text-lg">${item.seatNumber}</div>
+                        <div>${item.name || ""}</div>
+                        <div>${item.vilage || ""}</div>
+                        <div>${item.mobile || ""}</div>
+                      `
+                          : `
+                        <div class="font-bold text-lg">${seatNumber}</div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      `
+                      }
+                    </td>
+                  `;
+                })
+                .join("")}
+            </tr>
+          `;
+        })
+        .join("");
+    };
+
+    // Generate table rows for both tables
+    const firstTableRows = generateTableRows(labels);
+    const secondTableRows = generateTableRows(number);
+
+    // Create the HTML content for the PDF
+    const element = document.createElement("div");
+
+    element.innerHTML = `
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bus Seating Plan</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      </head>
+      <body class="font-sans m-0 p-0">
+        <div class="container mx-auto max-w-4xl p-4">
+          <div class="flex justify-between mb-4">
+            <div class="w-1/2 pr-2">
+              <table class="min-w-full border-collapse border border-black">
+                <thead>
+                  <tr>
+                    <th class="bg-red-500 text-white p-2">नीचे</th>
+                    <th class="bg-red-500 text-white p-2">ऊपर</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${firstTableRows}
+                </tbody>
+              </table>
+            </div>
+            <div class="w-1/2 pl-2">
+              <table class="min-w-full border-collapse border border-black">
+                <thead>
+                  <tr>
+                    <th class="bg-red-500 text-white p-2">नीचे</th>
+                    <th class="bg-red-500 text-white p-2">ऊपर</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${secondTableRows}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <table class="border-collapse border border-black w-full">
+            <tbody>
+              <tr><td class="border border-black p-2 text-center w-1/6">1</td><td class="border border-black p-2 text-center"></td></tr>
+              <tr><td class="border border-black p-2 text-center w-1/6">2</td><td class="border border-black p-2 text-center"></td></tr>
+              <tr><td class="border border-black p-2 text-center w-1/6">3</td><td class="border border-black p-2 text-center"></td></tr>
+              <tr><td class="border border-black p-2 text-center w-1/6">4</td><td class="border border-black p-2 text-center"></td></tr>
+              <tr><td class="border border-black p-2 text-center w-1/6">5</td><td class="border border-black p-2 text-center"></td></tr>
+              <tr><td class="border border-black p-2 text-center w-1/6">6</td><td class="border border-black p-2 text-center"></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </body>
+      </html>
+    `;
+
+    // Use html2pdf to convert the HTML to a PDF
+    html2pdf()
+      .from(element)
+      .toPdf()
+      .get("pdf")
+      .then((pdf) => {
+        pdf.autoPrint(); // Optional: automatically open the print dialog
+        pdf.save("shaktidhams1.pdf"); // Save the PDF
+      });
+  };
+  console.log(sortdata);
   return (
     <div className="App p-4 md:p-6 lg:p-8 flex flex-col md:flex-row gap-4">
       <div className="flex justify-between">
@@ -162,7 +621,7 @@ const Homepage = () => {
         <div>
           <button
             className="bg-[#8A6FDF] text-white px-4 py-2 rounded hover:bg-[#7451f2] mt-2"
-            // onClick={handleDownload}
+            onClick={handleDownload}
           >
             Download
           </button>
