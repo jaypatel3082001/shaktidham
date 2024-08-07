@@ -299,6 +299,41 @@ const Homepage = () => {
       });
   };
   console.log(sortdata);
+  const handleSendWhatsApp = (id,mobile) => {
+    console.log("id",mobile);
+    console.log("mobai",id);
+    // List of mobile numbers to send the message
+    const mobileNumbers = [mobile];
+  
+    // Message to send
+    const message = `---શક્તિ ધામ---
+
+
+બુકિંગ તારીખ : 8/8/2024
+ટાઇમ : 10:20 PM
+ક્યા થી ક્યા : મોટા દેવળીયા થી સુરત
+પીકપ પોઇન્ટ : વરાછા
+બસ નંબર : GJ-01-AB-9999
+સીટ નંબર : A
+રકમ : 500
+પેસે્જર મોબાઈલ નંબર : 8141415252
+
+
+સુરત ઓફિસ મોબાઇલ નંબર : 9825450700
+9825805971
+મોટા દેવળીયા ઓફિસ મોબાઇલ નંબર:9909134545
+9879584545
+જસદણ ઓફિસ મોબાઇલ નંબર : 9825864672
+9586653535
+હેલ્પલાઇન નંબર : 8141814190`;
+  
+    // Loop through each mobile number and open WhatsApp for each
+    mobileNumbers.forEach((number) => {
+      const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    });
+  };
+  
   return (
     <div className="App p-4 md:p-6 lg:p-8 flex flex-col md:flex-row gap-4">
       <div className="flex justify-between">
@@ -336,6 +371,12 @@ const Homepage = () => {
             onClick={handleDownload}
           >
             Download
+          </button>
+          <button
+            className="bg-[#8A6FDF] text-white px-4 py-2 rounded hover:bg-[#7451f2] mt-2"
+            onClick={handleSendWhatsApp}
+          >
+            send
           </button>
         </div>
       </div>
@@ -406,6 +447,12 @@ const Homepage = () => {
                                   onClick={() => handleDelete(item?._id)}
                                 >
                                   Delete
+                                </li>
+                                <li
+                                  className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
+                                  onClick={() => handleSendWhatsApp(item?._id,item?.mobile)}
+                                >
+                                  Send
                                 </li>
                               </ul>
                             </div>
