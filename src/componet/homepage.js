@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import html2pdf from "html2pdf.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setDate, setSeatNumber } from "../Slice/redux";
+import { keyboardImplementationWrapper } from "@testing-library/user-event/dist/keyboard";
 
 const Homepage = () => {
   const [display, setDisplay] = useState(false);
@@ -57,11 +58,14 @@ const Homepage = () => {
     const alphabet = "ABCDEFGHIJKL";
     if (index < 12) {
       return alphabet[index];
-    } else {
+    } else if (index < 24) {
       const pairIndex = index - 12;
       const firstNumber = pairIndex * 2 + 1;
       const secondNumber = firstNumber + 1;
       return `${firstNumber},${secondNumber}`;
+    } else {
+      const kabinIndex = index - 24 + 1; // starting from 1
+      return `kabin${kabinIndex}`;
     }
   };
 
@@ -468,12 +472,20 @@ const Homepage = () => {
     ];
 
     const number = [
-      ["1.2", "3.4"],
-      ["5.6", "7.8"],
-      ["9.10", "11.12"],
-      ["13.14", "15.16"],
-      ["17.18", "19.20"],
-      ["21.22", "23.24"],
+      ["1,2", "3,4"],
+      ["5,6", "7,8"],
+      ["9,10", "11,12"],
+      ["13,14", "15,16"],
+      ["17,18", "19,20"],
+      ["21,22", "23,24"],
+    ];
+    const kabin=[
+      ["kabin1"],
+      ["kabin2"],
+      ["kabin3"],
+      ["kabin4"],
+      ["kabin5"],
+      ["kabin6"],
     ];
 
     // Function to generate table rows from labels or numbers
@@ -481,6 +493,7 @@ const Homepage = () => {
       return dataList
         .map((pair) => {
           const items = pair.map((seatNumber) => {
+            console.log(sortdata.data);
             return sortdata.data.find((item) => item.seatNumber === seatNumber);
           });
 
@@ -515,10 +528,40 @@ const Homepage = () => {
         })
         .join("");
     };
-
+    const generatesTableRows = (dataList) => {
+      return dataList
+        .map((pair) => {
+          const items = pair.map((seatNumber) => {
+            console.log(sortdata.data);
+            return sortdata.data.find((item) => item.seatNumber === seatNumber);
+          });
+    
+          return `
+            <tr>
+              ${pair
+                .map((seatNumber, index) => {
+                  const item = items[index];
+                  return item
+                    ? `
+                      <td class="border border-black p-2 text-center w-1/6">${item.seatNumber}</td>
+                      <td class="border border-black p-2 text-left ">${item.name} -- ${item.vilage}</td>`
+                    : `
+                      <td class="border border-black p-2 text-center w-1/6">${seatNumber}</td>
+                      <td class="border border-black p-2 text-center "></td>`;
+                })
+                .join("")}
+            </tr>
+          `;
+        })
+        .join("");
+    };
+    
+    
+    
     // Generate table rows for both tables
     const firstTableRows = generateTableRows(labels);
     const secondTableRows = generateTableRows(number);
+    const thiredTableRows = generatesTableRows(kabin);
 
     // Create the HTML content for the PDF
     const element = document.createElement("div");
@@ -563,12 +606,8 @@ const Homepage = () => {
           </div>
           <table class="border-collapse border border-black w-full">
             <tbody>
-              <tr><td class="border border-black p-2 text-center w-1/6">1</td><td class="border border-black p-2 text-center"></td></tr>
-              <tr><td class="border border-black p-2 text-center w-1/6">2</td><td class="border border-black p-2 text-center"></td></tr>
-              <tr><td class="border border-black p-2 text-center w-1/6">3</td><td class="border border-black p-2 text-center"></td></tr>
-              <tr><td class="border border-black p-2 text-center w-1/6">4</td><td class="border border-black p-2 text-center"></td></tr>
-              <tr><td class="border border-black p-2 text-center w-1/6">5</td><td class="border border-black p-2 text-center"></td></tr>
-              <tr><td class="border border-black p-2 text-center w-1/6">6</td><td class="border border-black p-2 text-center"></td></tr>
+            
+              ${thiredTableRows}
             </tbody>
           </table>
         </div>
@@ -645,7 +684,7 @@ const Homepage = () => {
               </tr>
             </thead>
             <tbody>
-              {[...Array(24).keys()].map((i) => {
+              {[...Array(30).keys()].map((i) => {
                 const currentLabel = getLabel(i).toString();
                 const item = sortdata.data?.find(
                   (item) => item.seatNumber === currentLabel
