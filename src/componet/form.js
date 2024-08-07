@@ -10,37 +10,48 @@ function Form() {
   // Get the item to edit from location state
   const itemToEdit = location.state?.itemToEdit || null;
 
-  const initialdata = {
-    name: "",
-    village: "",
-    phonenumber: "",
-    setnumber: "",
-    date: "",
-  };
-
-  const [data, setData] = useState(itemToEdit || initialdata);
-
-  // Function to format the date
-  const formatDate = (date) => {
+  const formatDateForDisplay = (date) => {
     if (!date) return "";
     const formattedDate = new Date(date);
     const year = formattedDate.getFullYear();
     const month = String(formattedDate.getMonth() + 1).padStart(2, "0");
     const day = String(formattedDate.getDate()).padStart(2, "0");
-    return `${day}-${month}-${year}`;
+    return `${day}/${month}/${year}`;
   };
+
+  const formatDateForAPI = (date) => {
+    if (!date) return "";
+    const [day, month, year] = date.split("/");
+    return `${year}-${month}-${day}`;
+  };
+
+  const initialData = {
+    name: "",
+    vilage: "",
+    mobile: "",
+    seatNumber: "",
+    date: "",
+  };
+
+  const [data, setData] = useState(initialData);
 
   useEffect(() => {
     if (itemToEdit) {
       setData({
         name: itemToEdit.name || "",
-        village: itemToEdit.village || "",
-        phonenumber: itemToEdit.phonenumber || "",
-        setnumber: itemToEdit.setnumber || "",
-        date: formatDate(itemToEdit.date) || "",
+        vilage: itemToEdit.vilage || "",
+        mobile: itemToEdit.mobile || "",
+        seatNumber: itemToEdit.seatNumber || "",
+        date: formatDateForDisplay(itemToEdit.date) || "",
+      });
+    } else {
+      setData({
+        ...initialData,
+        seatNumber: inputs.Tablemanuplation.seatnumber || "",
+        date: formatDateForDisplay(inputs.Tablemanuplation.date) || "",
       });
     }
-  }, [itemToEdit]);
+  }, [itemToEdit, inputs.Tablemanuplation]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,10 +63,15 @@ function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formattedData = {
+      ...data,
+      date: formatDateForAPI(data.date),
+    };
+
     try {
       const endpoint = itemToEdit
-        ? `https://busbackend.vercel.app/seats/update/${itemToEdit._id}`
-        : "https://busbackend.vercel.app/seats/create";
+        ? `http://localhost:3001/seats/update/${itemToEdit._id}`
+        : "http://localhost:3001/seats/create";
       const method = itemToEdit ? "PUT" : "POST";
 
       const response = await fetch(endpoint, {
@@ -63,7 +79,7 @@ function Form() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formattedData),
       });
 
       if (response.ok) {
@@ -103,51 +119,51 @@ function Form() {
           />
 
           <label
-            htmlFor="village"
+            htmlFor="vilage"
             className="text-left text-gray-700 font-bold block mt-4"
           >
             Village:
           </label>
           <input
             type="text"
-            id="village"
-            name="village"
+            id="vilage"
+            name="vilage"
             onChange={handleChange}
-            value={data.village}
+            value={data.vilage}
             placeholder="Enter your Village"
             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
             required
           />
 
           <label
-            htmlFor="phonenumber"
+            htmlFor="mobile"
             className="text-left text-gray-700 font-bold block mt-4"
           >
             Mobile No:
           </label>
           <input
             type="text"
-            id="phonenumber"
-            name="phonenumber"
+            id="mobile"
+            name="mobile"
             onChange={handleChange}
-            value={data.phonenumber}
+            value={data.mobile}
             placeholder="Enter your Mobile Number"
             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
           />
 
           <label
-            htmlFor="setnumber"
+            htmlFor="seatNumber"
             className="text-left text-gray-700 font-bold block mt-4"
           >
-            Set Number
+            Seat Number:
           </label>
           <input
             type="text"
-            id="setnumber"
-            name="setnumber"
+            id="seatNumber"
+            name="seatNumber"
             onChange={handleChange}
-            value={data.setnumber}
-            placeholder="Enter your seatNumber"
+            value={data.seatNumber}
+            placeholder="Enter your Seat Number"
             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 mt-1"
             required
           />
@@ -156,7 +172,7 @@ function Form() {
             htmlFor="date"
             className="text-left text-gray-700 font-bold block mt-4"
           >
-            Date
+            Date:
           </label>
           <input
             type="text"
@@ -164,7 +180,7 @@ function Form() {
             name="date"
             onChange={handleChange}
             value={data.date}
-            placeholder="Enter your Date"
+            placeholder="Enter your Date (dd/mm/yyyy)"
             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 mt-1"
             required
           />

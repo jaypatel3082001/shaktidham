@@ -11,7 +11,7 @@ const InputSlice = createSlice({
   initialState,
   reducers: {
     setSeatNumber: (state, action) => {
-      state.Tablemanuplation.data = action.payload;
+      state.Tablemanuplation.seatnumber = action.payload;
     },
     setDate: (state, action) => {
       state.Tablemanuplation.date = action.payload;
