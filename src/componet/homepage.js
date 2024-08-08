@@ -8,8 +8,8 @@ import { ReactComponent as Upboxuparrow } from "../svg/uparrow.svg";
 import { useNavigate } from "react-router-dom";
 import html2pdf from "html2pdf.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setDate, setSeatNumber,setPopbox } from "../Slice/redux";
-import { keyboardImplementationWrapper } from "@testing-library/user-event/dist/keyboard";
+import { setDate, setSeatNumber, setPopbox } from "../Slice/redux";
+
 import Showbusnumber from "./showbusnumber";
 
 const Homepage = () => {
@@ -20,12 +20,14 @@ const Homepage = () => {
   const [isloading, setIsloading] = useState(false); // Updated default state
   const [isDateSelected, setIsDateSelected] = useState(false); // New state for date selection
   const buttonRefs = useRef([]);
+  const [busdetails, setBusDetails] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const[popbox,setPopbox]=useState(false);
+  const [popbox, setPopbox] = useState(false);
   const inputs = useSelector((state) => state.inputs);
   const deleteapi = "https://busbackend.vercel.app/seats/delete/";
   const searchapi = "https://busbackend.vercel.app/seats/search";
+  const busnumbersearchapi = "https://busbackend.vercel.app/bus/search";
 
   const handleClickOutside = useCallback((event) => {
     if (
@@ -101,11 +103,16 @@ const Homepage = () => {
       const formattedDate = formatDateForAPI(date);
       try {
         const response = await fetch(`${searchapi}?Date=${formattedDate}`);
-        if (!response.ok) {
+        const busnumber = await fetch(
+          `${busnumbersearchapi}?Date=${formattedDate}`
+        );
+        if (!response.ok && !busnumber.ok) {
           throw new Error("Network response was not ok");
         }
         const result = await response.json();
+        const busdetails = await busnumber.json();
         setSortdata(result);
+        setBusDetails(busdetails);
       } catch (error) {
         console.error("Fetch operation error:", error);
       } finally {
@@ -114,7 +121,7 @@ const Homepage = () => {
     },
     [dispatch]
   );
-
+  console.log(busdetails, "busdetails");
   const handleDelete = useCallback(
     async (id) => {
       try {
@@ -133,8 +140,7 @@ const Homepage = () => {
     },
     [handleDateChange, inputs.Tablemanuplation.date, deleteapi]
   );
-  
-  
+
   const handleDownload = () => {
     // Data for table labels and numbers
     const labels = [
@@ -154,7 +160,7 @@ const Homepage = () => {
       ["17,18", "19,20"],
       ["21,22", "23,24"],
     ];
-    const kabin=[
+    const kabin = [
       ["કેબિન-1"],
       ["કેબિન-2"],
       ["કેબિન-3"],
@@ -210,7 +216,7 @@ const Homepage = () => {
             console.log(sortdata.data);
             return sortdata.data.find((item) => item.seatNumber === seatNumber);
           });
-    
+
           return `
             <tr>
               ${pair
@@ -230,9 +236,7 @@ const Homepage = () => {
         })
         .join("");
     };
-    
-    
-    
+
     // Generate table rows for both tables
     const firstTableRows = generateTableRows(labels);
     const secondTableRows = generateTableRows(number);
@@ -297,56 +301,54 @@ const Homepage = () => {
       .get("pdf")
       .then((pdf) => {
         pdf.autoPrint(); // Optional: automatically open the print dialog
-        pdf.save(`${formatDateForDisplay(inputs.Tablemanuplation.date)}shaktidham.pdf`); // Save the PDF
+        pdf.save(
+          `${formatDateForDisplay(inputs.Tablemanuplation.date)}shaktidham.pdf`
+        ); // Save the PDF
       });
   };
   console.log(sortdata);
-  const handleSendWhatsApp = (id,mobile) => {
-    console.log("id",mobile);
-    console.log("mobai",id);
+  const handleSendWhatsApp = (id, mobile, village) => {
+    console.log("Mobile:", mobile);
+    console.log("ID:", id);
+
+    // Format date using the formatDateForDisplay function
+    const formattedDate = formatDateForDisplay(inputs.Tablemanuplation.date);
+
+    // Message to send
+    const message =
+      `---શક્તિ ધામ---\n\n` +
+      `બુકિંગ તારીખ : ${formattedDate}\n` +
+      `ટાઇમ : 10:20 PM\n` +
+      `ક્યા થી ક્યા : ${village} થી સુરત\n\n` +
+      `બસ નંબર : ${busdetails.data[0].busNumber}\n` +
+      `સીટ નંબર : ${inputs.Tablemanuplation.seatnumber}\n` +
+      `રકમ : ${busdetails.data[0].price}\n` +
+      `પેસેર્જર મોબાઈલ નંબર : ${mobile}\n` +
+      `લોકેશન: ${busdetails.data[0].location}\n\n` +
+      `સુરત ઓફિસ મોબાઇલ નંબર : 9825450700\n` +
+      `9825805971\n` +
+      `મોટા દેવળીયા ઓફિસ મોબાઇલ નંબર: 9909134545\n` +
+      `9879584545\n` +
+      `જસદણ ઓફિસ મોબાઇલ નંબર : 9825864672\n` +
+      `9586653535\n` +
+      `હેલ્પલાઇન નંબર : 8141814190`;
+
     // List of mobile numbers to send the message
     const mobileNumbers = [mobile];
-  
-    // Message to send
-    const message = `---શક્તિ ધામ---
 
-
-બુકિંગ તારીખ : 8/8/2024
-ટાઇમ : 10:20 PM
-ક્યા થી ક્યા : મોટા દેવળીયા થી સુરત
-પીકપ પોઇન્ટ : વરાછા
-બસ નંબર : GJ-01-AB-9999
-સીટ નંબર : A
-રકમ : 500
-પેસે્જર મોબાઈલ નંબર : 8141415252
-
-
-સુરત ઓફિસ મોબાઇલ નંબર : 9825450700
-9825805971
-મોટા દેવળીયા ઓફિસ મોબાઇલ નંબર:9909134545
-9879584545
-જસદણ ઓફિસ મોબાઇલ નંબર : 9825864672
-9586653535
-હેલ્પલાઇન નંબર : 8141814190`;
-  
     // Loop through each mobile number and open WhatsApp for each
     mobileNumbers.forEach((number) => {
       const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
+      window.open(url, "_blank");
     });
   };
-  console.log(inputs.Tablemanuplation.openpop,"inputs.Tablemanuplation.openpop");
-  const showQuestion = useCallback(
-    () => {
-     console.log(inputs.Tablemanuplation.openpop,"inputs.Tablemanuplation.openpop");
-    setPopbox(!popbox);
 
-      // localStorage.setItem("QuizeId", id);
-    },
-    )
+  const showQuestion = useCallback(() => {
+    setPopbox(!popbox);
+  });
   return (
     <div className="App p-4 md:p-6 lg:p-8 flex flex-col md:flex-row gap-4">
-      <div className="flex justify-between">
+      <div className="flex justify-center">
         <div>
           <LocalizationProvider
             dateAdapter={AdapterLuxon}
@@ -374,110 +376,126 @@ const Homepage = () => {
               )}
             />
           </LocalizationProvider>
-        </div>
+        </div>{" "}
+      </div>
+      {!isDateSelected && !isloading ? (
+        <div className="text-center py-4">Select Date</div>
+      ) : isloading ? (
+        <div className="text-center py-4">Loading...</div>
+      ) : (
         <div>
-          <button
-            className="bg-[#8A6FDF] text-white px-4 py-2 rounded hover:bg-[#7451f2] mt-2"
-            onClick={handleDownload}
-          >
-            Download
-          </button>
-          <button
-            className="bg-[#8A6FDF] text-white px-4 py-2 rounded hover:bg-[#7451f2] mt-2"
-            onClick={showQuestion}
-          >
-            Add
-          </button>
-        </div>
-      </div>
+          <div className="flex justify-between mb-3">
+            <button
+              className="bg-[#8A6FDF] text-white px-4 py-2 rounded hover:bg-[#7451f2] mt-2"
+              onClick={handleDownload}
+            >
+              Download
+            </button>
+            <button
+              className="bg-[#8A6FDF] text-white px-4 py-2 rounded hover:bg-[#7451f2] mt-2"
+              onClick={showQuestion}
+            >
+              Add
+            </button>
+          </div>
 
-      <div className="flex-1 overflow-x-auto" id="table-container">
-        {!isDateSelected && !isloading ? (
-          <div className="text-center py-4">Select Date</div>
-        ) : isloading ? (
-          <div className="text-center py-4">Loading...</div>
-        ) : (
-          <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="p-2 border-b">Number</th>
-                <th className="p-2 border-b">Village</th>
-                <th className="p-2 border-b">Name</th>
-                <th className="p-2 border-b">Phone No.</th>
-                <th className="p-2 border-b">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[...Array(30).keys()].map((i) => {
-                const currentLabel = getLabel(i).toString();
-                const item = sortdata.data?.find(
-                  (item) => item.seatNumber === currentLabel
-                );
-                return (
-                  <tr key={i} className="hover:bg-gray-50">
-                    <td className="text-center py-5 border">{currentLabel}</td>
-                    <td className="p-2 border">{item ? item.vilage : ""}</td>
-                    <td className="p-2 border">{item ? item.name : ""}</td>
-                    <td className="p-2 border">{item ? item.mobile : ""}</td>
-                    <td className="relative border">
-                      <>
-                        <button
-                          className="ml-4 hover:text-blue-900"
-                          onClick={() => handleClicktd(currentLabel)}
-                          ref={(el) => (buttonRefs.current[i] = el)}
-                        >
-                          <div className="flex justify-center">
-                            <Action className="w-6 h-6 text-blue-500" />
-                          </div>
-                        </button>
-                        {display && tooltipId === currentLabel && (
-                          <div
-                            role="tooltip"
-                            className="absolute shadow-lg bg-blue-400 z-10 border rounded p-2"
-                            style={{
-                              top: "100%",
-                              left: "50%",
-                              transform: "translateX(-50%)",
-                            }}
-                            ref={tooltipRef}
+          <div className="flex-1 overflow-x-auto" id="table-container">
+            <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="p-2 border-b">Number</th>
+                  <th className="p-2 border-b">Village</th>
+                  <th className="p-2 border-b">Name</th>
+                  <th className="p-2 border-b">Phone No.</th>
+                  <th className="p-2 border-b">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[...Array(30).keys()].map((i) => {
+                  const currentLabel = getLabel(i).toString();
+                  const item = sortdata.data?.find(
+                    (item) => item.seatNumber === currentLabel
+                  );
+                  return (
+                    <tr key={i} className="hover:bg-gray-50">
+                      <td className="text-center py-5 border">
+                        {currentLabel}
+                      </td>
+                      <td className="p-2 border">{item ? item.vilage : ""}</td>
+                      <td className="p-2 border">{item ? item.name : ""}</td>
+                      <td className="p-2 border">{item ? item.mobile : ""}</td>
+                      <td className="relative border">
+                        <>
+                          <button
+                            className="ml-4 hover:text-blue-900"
+                            onClick={() => handleClicktd(currentLabel)}
+                            ref={(el) => (buttonRefs.current[i] = el)}
                           >
-                            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                              <Upboxuparrow className="w-4 h-4 text-blue-400" />
+                            <div className="flex justify-center">
+                              <Action className="w-6 h-6 text-blue-500" />
                             </div>
-                            <div className="flex flex-col">
-                              <ul className="space-y-2">
-                                <li
-                                  className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
-                                  onClick={() => handleEditClick(item?._id)}
-                                >
-                                  {item?.vilage ? "Edit" : "Add"}
-                                </li>
-                                <li
-                                  className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
-                                  onClick={() => handleDelete(item?._id)}
-                                >
-                                  Delete
-                                </li>
-                                <li
-                                  className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
-                                  onClick={() => handleSendWhatsApp(item?._id,item?.mobile)}
-                                >
-                                  Send
-                                </li>
-                              </ul>
+                          </button>
+                          {display && tooltipId === currentLabel && (
+                            <div
+                              role="tooltip"
+                              className="absolute shadow-lg bg-blue-400 z-10 border rounded p-2"
+                              style={{
+                                top: "100%",
+                                left: "50%",
+                                transform: "translateX(-50%)",
+                              }}
+                              ref={tooltipRef}
+                            >
+                              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                                <Upboxuparrow className="w-4 h-4 text-blue-400" />
+                              </div>
+                              <div className="flex flex-col">
+                                <ul className="space-y-2">
+                                  <li
+                                    className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
+                                    onClick={() => handleEditClick(item?._id)}
+                                  >
+                                    {item?.vilage ? "Edit" : "Add"}
+                                  </li>
+                                  <li
+                                    className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
+                                    onClick={() => handleDelete(item?._id)}
+                                  >
+                                    Delete
+                                  </li>
+                                  <li
+                                    className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
+                                    onClick={() =>
+                                      handleSendWhatsApp(
+                                        item?._id,
+                                        item?.mobile,
+                                        item?.vilage
+                                      )
+                                    }
+                                  >
+                                    Send
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
-                          </div>
-                        )}
-                      </>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        )}
-      </div>
-      <Showbusnumber showQuestion={showQuestion} popbox={popbox} />
+                          )}
+                        </>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      <Showbusnumber
+        showQuestion={showQuestion}
+        popbox={popbox}
+        busdetails={busdetails}
+        handleDateChange={handleDateChange}
+      />
     </div>
   );
 };
