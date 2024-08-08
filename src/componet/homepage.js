@@ -149,12 +149,12 @@ const Homepage = () => {
   const handleDownload = () => {
     // Data for table labels and numbers
     const labels = [
-      ["A", "B"],
-      ["C", "D"],
-      ["E", "F"],
-      ["G", "H"],
-      ["I", "J"],
-      ["K", "L"],
+      ["B", "A"],
+      ["D", "C"],
+      ["F", "E"],
+      ["H", "G"],
+      ["J", "I"],
+      ["L", "K"],
     ];
 
     const number = [
@@ -264,8 +264,8 @@ const Homepage = () => {
               <table class="min-w-full border-collapse border border-black">
                 <thead>
                   <tr>
-                    <th class="bg-red-500 text-white p-2">નીચે  </th>
-                    <th class="bg-red-500 text-white p-2">ઉપર</th>
+                    <th class="bg-red-500 text-white p-2">ઉપર  </th>
+                    <th class="bg-red-500 text-white p-2">નીચે</th>
                   </tr>
                 </thead>
                 <tbody>
