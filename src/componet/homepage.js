@@ -327,10 +327,10 @@ const Homepage = () => {
       `લોકેશન: ${busdetails.data[0].location}\n\n` +
       `સુરત ઓફિસ મોબાઇલ નંબર : 9825450700\n` +
       `9825805971\n` +
-      `મોટા દેવળીયા ઓફિસ મોબાઇલ નંબર: 9909134545\n` +
-      `9879584545\n` +
-      `જસદણ ઓફિસ મોબાઇલ નંબર : 9825864672\n` +
+      `મોટા દેવળીયા ઓફિસ મોબાઇલ નંબર: 9825864672\n` +
       `9586653535\n` +
+      `જસદણ ઓફિસ મોબાઇલ નંબર : 9909134545\n` +
+      `9879584545\n` +
       `હેલ્પલાઇન નંબર : 8141814190`;
 
     // List of mobile numbers to send the message
@@ -338,7 +338,9 @@ const Homepage = () => {
 
     // Loop through each mobile number and open WhatsApp for each
     mobileNumbers.forEach((number) => {
-      const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+      const url = `https://wa.me/+91${number}?text=${encodeURIComponent(
+        message
+      )}`;
       window.open(url, "_blank");
     });
   };
