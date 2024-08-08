@@ -318,12 +318,12 @@ const Homepage = () => {
     // Message to send
     const message =
       `---શક્તિ ધામ---\n\n` +
-      `બુકિંગ તારીખ  :${formattedDate}\n` +
-      `ટાઇમ        : 10:20 PM\n` +
-      `ક્યા થી ક્યા   : ${village} થી સુરત\n\n` +
-      `બસ નંબર     : ${busdetails.data[0].busNumber}\n` +
-      `સીટ નંબર     : ${inputs.Tablemanuplation.seatnumber}\n` +
-      `રકમ         : ${busdetails.data[0].price}\n\n\n` +
+      `બુકિંગ તારીખ    : ${formattedDate}\n` +
+      `ટાઇમ          : 10:20 PM\n` +
+      `ક્યા થી ક્યા     : ${village} થી સુરત\n\n` +
+      `બસ નંબર       : ${busdetails.data[0].busNumber}\n` +
+      `સીટ નંબર      : ${inputs.Tablemanuplation.seatnumber}\n` +
+      `રકમ           : ${busdetails.data[0].price}\n\n\n` +
       `પેસેર્જર મોબાઈલ નંબર : ${mobile}\n\n\n` +
       `લોકેશન : ${busdetails.data[0].location}\n\n\n` +
       `સુરત ઓફિસ મોબાઇલ નંબર :\n 9825450700\n` +
