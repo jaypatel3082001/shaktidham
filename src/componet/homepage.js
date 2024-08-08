@@ -88,11 +88,12 @@ const Homepage = () => {
   };
 
   const formatDateForAPI = (date) => {
-    return date ? date.toISODate() : "";
+    return date ? date.toFormat("yyyy/dd/MM") : "";
   };
 
   const handleDateChange = useCallback(
     async (date) => {
+      console.log(date, "sasasdssssssssssssssssssssssssssssssss");
       if (!date) {
         setIsDateSelected(false);
         return;
@@ -111,6 +112,7 @@ const Homepage = () => {
         }
         const result = await response.json();
         const busdetails = await busnumber.json();
+        console.log(busdetails, "aaaaaaaa");
         setSortdata(result);
         setBusDetails(busdetails);
       } catch (error) {

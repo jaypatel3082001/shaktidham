@@ -1,23 +1,11 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ReactComponent as Edit } from "../svg/edit.svg";
 
 function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
   const inputs = useSelector((state) => state.inputs);
-  const navigate = useNavigate();
-
-  const initialData = {
-    busNumber: "",
-    location: "",
-    price: "",
-    date: "",
-  };
-
-  const [data, setData] = useState(initialData);
-  const [error, setError] = useState(null);
-  const [isEditing, setIsEditing] = useState(false); // Add state for edit mode
-
+  const location = useLocation();
   const formatDateForDisplay = (date) => {
     if (!date) return "";
     const formattedDate = new Date(date);
@@ -32,35 +20,39 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
     const [day, month, year] = date.split("/");
     return `${year}-${month}-${day}`;
   };
-
+  const date = formatDateForDisplay(inputs.Tablemanuplation.date);
+  console.log(date, "daaaaaaa");
+  const [data, setData] = useState({
+    busNumber: "",
+    location: "",
+    price: "",
+    date: date,
+  });
+  console.log(date, "inputs.Tablemanuplation.date");
+  const [error, setError] = useState(null); // Added state for error handling
+  console.log(data, "dahhhhhhhta");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,
       [name]: value,
+      date: date,
     }));
   };
-
-  const handleEditClick = () => {
-    setData({
-      busNumber: busdetails?.data?.[0]?.busNumber || "",
-      location: busdetails?.data?.[0]?.location || "",
-      price: busdetails?.data?.[0]?.price || "",
-      date: formatDateForDisplay(busdetails?.data?.[0]?.date) || "",
-    });
-    setIsEditing(true);
-  };
-
+  console.log(busdetails, "sssssssssssss");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formattedData = {
       ...data,
-      date: formatDateForAPI(data.date),
     };
-
+    console.log(formattedData, "formattedData");
     try {
-      const endpoint = `https://busbackend.vercel.app/bus/update/${busdetails.data[0]._id}`;
-      const method = "PUT";
+      const hasId = busdetails.data[0]?._id;
+
+      const endpoint = hasId
+        ? `https://busbackend.vercel.app/bus/update/${busdetails.data[0]._id}`
+        : "https://busbackend.vercel.app/bus/create";
+      const method = hasId ? "PUT" : "POST";
 
       const response = await fetch(endpoint, {
         method,
@@ -72,10 +64,15 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
 
       if (response.ok) {
         const result = await response.json();
-        // handleDateChange();
-        navigate(0);
+        console.log("API response:", result);
+        setData({
+          busNumber: "",
+          location: "",
+          price: "",
+          date: date,
+        }); // Log API response
         showQuestion();
-        setIsEditing(false); // Exit edit mode on successful submission
+        handleDateChange(inputs.Tablemanuplation.date);
       } else {
         const errorText = await response.text();
         console.error("Submission failed:", errorText);
@@ -87,13 +84,18 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
     }
   };
 
+  const handleEdit = () => {
+    // Define this function to handle edit action
+    console.log("Edit clicked");
+  };
+
   return (
     <div>
       {popbox && (
         <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-gray-800 bg-opacity-50 z-100">
           <div className="bg-white w-3/4 md:w-1/2 xl:w-1/3 p-6 rounded-lg shadow-lg">
             <div className="flex justify-between">
-              <div className="font-bold text-xl">Bus Details</div>
+              <div className="font-bold text-xl"></div>
               <div className="cursor-pointer" onClick={showQuestion}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -108,110 +110,102 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
                 </svg>
               </div>
             </div>
-            {isEditing ? (
-              <form onSubmit={handleSubmit}>
-                <label
-                  htmlFor="busNumber"
-                  className="text-left text-gray-700 font-bold block"
+            <form onSubmit={handleSubmit}>
+              <label
+                htmlFor="busNumber"
+                className="text-left text-gray-700 font-bold block"
+              >
+                Bus Number:
+              </label>
+              <input
+                type="text"
+                id="busNumber"
+                name="busNumber"
+                onChange={handleChange}
+                value={data.busNumber}
+                placeholder="Enter your Bus Number"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                required
+              />
+              <label
+                htmlFor="price"
+                className="text-left text-gray-700 font-bold block mt-4"
+              >
+                Price:
+              </label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                onChange={handleChange}
+                value={data.price}
+                placeholder="Enter Price"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                required
+              />
+              <label
+                htmlFor="location"
+                className="text-left text-gray-700 font-bold block mt-4"
+              >
+                Location:
+              </label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                onChange={handleChange}
+                value={data.location}
+                placeholder="Enter Location"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                required
+              />
+              <label
+                htmlFor="date"
+                className="text-left text-gray-700 font-bold block mt-4"
+              >
+                Date:
+              </label>
+              <input
+                type="text"
+                id="date"
+                name="date"
+                onChange={handleChange}
+                value={date}
+                placeholder="Enter Date (dd/mm/yyyy)"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 mt-1"
+                // required
+              />
+              <div className="flex space-x-2 mt-3">
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white font-bold py-2 px-4 rounded w-full"
                 >
-                  Bus Number:
-                </label>
-                <input
-                  type="text"
-                  id="busNumber"
-                  name="busNumber"
-                  onChange={handleChange}
-                  value={data.busNumber}
-                  placeholder="Enter your Bus Number"
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
-                  required
-                />
-                <label
-                  htmlFor="price"
-                  className="text-left text-gray-700 font-bold block mt-4"
-                >
-                  Price:
-                </label>
-                <input
-                  type="number"
-                  id="price"
-                  name="price"
-                  onChange={handleChange}
-                  value={data.price}
-                  placeholder="Enter Price"
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
-                  required
-                />
-                <label
-                  htmlFor="location"
-                  className="text-left text-gray-700 font-bold block mt-4"
-                >
-                  Location:
-                </label>
-                <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  onChange={handleChange}
-                  value={data.location}
-                  placeholder="Enter Location"
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
-                  required
-                />
-                <label
-                  htmlFor="date"
-                  className="text-left text-gray-700 font-bold block mt-4"
-                >
-                  Date:
-                </label>
-                <input
-                  type="text"
-                  id="date"
-                  name="date"
-                  onChange={handleChange}
-                  value={data.date}
-                  placeholder="Enter Date (dd/mm/yyyy)"
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 mt-1"
-                  required
-                />
-                <div className="flex space-x-2 mt-3">
-                  <button
-                    type="submit"
-                    className="bg-blue-500 text-white font-bold py-2 px-4 rounded w-full"
-                  >
-                    Update
-                  </button>
-                </div>
-                {error && <div className="text-red-500 mt-2">{error}</div>}
-              </form>
-            ) : (
-              <div>
-                <div
-                  className="flex justify-end mt-3"
-                  onClick={handleEditClick}
-                >
-                  <Edit className="w-6 h-6 text-blue-500 cursor-pointer" />
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-                    <tbody>
-                      <tr className="border-b hover:bg-gray-50">
-                        <td className="p-4">Bus Number</td>
-                        <td className="p-4">
-                          {busdetails?.data?.[0]?.busNumber || ""}
-                        </td>
-                      </tr>
-                      <tr className="border-b hover:bg-gray-50">
-                        <td className="p-4">Price</td>
-                        <td className="p-4">
-                          {busdetails?.data?.[0]?.price || ""}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                  {busdetails.data[0]?._id ? "Update" : "Submit"}
+                </button>
               </div>
-            )}
+              {error && <div className="text-red-500 mt-2">{error}</div>}
+            </form>
+            <div className="flex justify-end mt-3" onClick={handleEdit}>
+              <Edit className="w-6 h-6 text-blue-500 cursor-pointer" />
+            </div>
+            <div className="overflow-x-auto">
+              <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+                <tbody>
+                  <tr className="border-b hover:bg-gray-50">
+                    <td className="p-4">Bus Number</td>
+                    <td className="p-4">
+                      {busdetails?.data?.[0]?.busNumber || ""}
+                    </td>
+                  </tr>
+                  <tr className="border-b hover:bg-gray-50">
+                    <td className="p-4">Price</td>
+                    <td className="p-4">
+                      {busdetails?.data?.[0]?.price || ""}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
