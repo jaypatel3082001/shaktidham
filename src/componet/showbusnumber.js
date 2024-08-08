@@ -6,6 +6,7 @@ import { ReactComponent as Edit } from "../svg/edit.svg";
 function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
   const inputs = useSelector((state) => state.inputs);
   const location = useLocation();
+
   const formatDateForDisplay = (date) => {
     if (!date) return "";
     const formattedDate = new Date(date);
@@ -21,16 +22,16 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
     return `${year}-${month}-${day}`;
   };
   const date = formatDateForDisplay(inputs.Tablemanuplation.date);
-  console.log(date, "daaaaaaa");
+
   const [data, setData] = useState({
     busNumber: "",
     location: "",
     price: "",
     date: date,
   });
-  console.log(date, "inputs.Tablemanuplation.date");
+
   const [error, setError] = useState(null); // Added state for error handling
-  console.log(data, "dahhhhhhhta");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({
@@ -39,13 +40,14 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
       date: date,
     }));
   };
-  console.log(busdetails, "sssssssssssss");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formattedData = {
       ...data,
+      date: formatDateForAPI(data.date),
     };
-    console.log(formattedData, "formattedData");
+
     try {
       const hasId = busdetails.data[0]?._id;
 
@@ -64,7 +66,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("API response:", result);
+
         setData({
           busNumber: "",
           location: "",
@@ -82,11 +84,6 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
       console.error("Fetch operation error:", error);
       setError("An error occurred. Please try again.");
     }
-  };
-
-  const handleEdit = () => {
-    // Define this function to handle edit action
-    console.log("Edit clicked");
   };
 
   return (
@@ -185,9 +182,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
               </div>
               {error && <div className="text-red-500 mt-2">{error}</div>}
             </form>
-            <div className="flex justify-end mt-3" onClick={handleEdit}>
-              <Edit className="w-6 h-6 text-blue-500 cursor-pointer" />
-            </div>
+
             <div className="overflow-x-auto">
               <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
                 <tbody>

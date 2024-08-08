@@ -90,10 +90,12 @@ const Homepage = () => {
   const formatDateForAPI = (date) => {
     return date ? date.toFormat("yyyy/dd/MM") : "";
   };
+  const formatDateForset = (date) => {
+    return date ? date.toFormat("yyyy/MM/dd") : "";
+  };
 
   const handleDateChange = useCallback(
     async (date) => {
-      console.log(date, "sasasdssssssssssssssssssssssssssssssss");
       if (!date) {
         setIsDateSelected(false);
         return;
@@ -101,7 +103,8 @@ const Homepage = () => {
       setIsDateSelected(true);
       setIsloading(true);
       dispatch(setDate(date));
-      const formattedDate = formatDateForAPI(date);
+      const formattedDate = formatDateForset(date);
+      const formattedDatebus = formatDateForAPI(date);
       try {
         const response = await fetch(`${searchapi}?Date=${formattedDate}`);
         const busnumber = await fetch(
@@ -112,7 +115,7 @@ const Homepage = () => {
         }
         const result = await response.json();
         const busdetails = await busnumber.json();
-        console.log(busdetails, "aaaaaaaa");
+
         setSortdata(result);
         setBusDetails(busdetails);
       } catch (error) {
@@ -123,7 +126,7 @@ const Homepage = () => {
     },
     [dispatch]
   );
-  console.log(busdetails, "busdetails");
+
   const handleDelete = useCallback(
     async (id) => {
       try {
@@ -176,7 +179,6 @@ const Homepage = () => {
       return dataList
         .map((pair) => {
           const items = pair.map((seatNumber) => {
-            console.log(sortdata.data);
             return sortdata.data.find((item) => item.seatNumber === seatNumber);
           });
 
@@ -215,7 +217,6 @@ const Homepage = () => {
       return dataList
         .map((pair) => {
           const items = pair.map((seatNumber) => {
-            console.log(sortdata.data);
             return sortdata.data.find((item) => item.seatNumber === seatNumber);
           });
 
@@ -308,11 +309,8 @@ const Homepage = () => {
         ); // Save the PDF
       });
   };
-  console.log(sortdata);
-  const handleSendWhatsApp = (id, mobile, village) => {
-    console.log("Mobile:", mobile);
-    console.log("ID:", id);
 
+  const handleSendWhatsApp = (id, mobile, village) => {
     // Format date using the formatDateForDisplay function
     const formattedDate = formatDateForDisplay(inputs.Tablemanuplation.date);
 
