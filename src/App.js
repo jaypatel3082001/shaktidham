@@ -4,6 +4,7 @@ import Homepage from "./componet/homepage";
 import BookinForm from "./componet/form";
 import Adminlogin from "./componet/adminlogin";
 import { jwtDecode } from "jwt-decode";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
   const token = localStorage.getItem("authToken");
@@ -33,10 +34,24 @@ function App() {
           <Route path="/" element={<Adminlogin />} />
         </Routes>
         <Routes>
-          <Route path="/home" element={<Homepage />} />
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute>
+                <Homepage />
+              </PrivateRoute>
+            }
+          />
         </Routes>
         <Routes>
-          <Route path="/form" element={<BookinForm />} />
+          <Route
+            path="/form"
+            element={
+              <PrivateRoute>
+                <BookinForm />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Router>
     </div>
