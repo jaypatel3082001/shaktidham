@@ -193,8 +193,8 @@ const Homepage = () => {
                         item
                           ? `
                         <div class="font-bold text-lg">${item.seatNumber}</div>
-                        <div>${item.name || ""}</div>
                         <div>${item.vilage || ""}</div>
+                        <div>${item.name || ""}</div>
                         <div>${item.mobile || ""}</div>
                       `
                           : `
