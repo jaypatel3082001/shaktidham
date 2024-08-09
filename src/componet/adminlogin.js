@@ -67,7 +67,7 @@ const Adminlogin = () => {
             Email
           </label>
           <input
-            type="email"
+            type="text"
             name="email"
             onChange={handleChange}
             value={inputlogindata.email}
@@ -103,16 +103,6 @@ const Adminlogin = () => {
             </button>
           </div>
         </form>
-
-        <p className="text-gray-600 text-center mt-4">
-          Not registered?
-          <Link
-            to="/admin/adminsignuppage"
-            className="text-green-500 ml-1 hover:underline"
-          >
-            Create an account
-          </Link>
-        </p>
       </div>
     </div>
   );
