@@ -84,7 +84,7 @@ function Form() {
 
       if (response.ok) {
         await response.json();
-        navigate("/");
+        navigate("/home");
       } else {
         console.error("Submission failed");
       }
