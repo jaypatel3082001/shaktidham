@@ -258,6 +258,17 @@ const Homepage = () => {
       </head>
       <body class="font-sans m-0 p-0">
         <div class="container mx-auto max-w-4xl p-4">
+      <table class="min-w-full     mb-3">
+      <thead>
+        <tr class=" ">
+          <th class=" text-right pr-2  ">તારીખ:-</th>
+          <th class=" text-left">${formattedDate}</th>
+          <th class=" text-right pr-2 ">બસ નંબર
+:-</th>
+          <th class=" py-3 text-left  "> ${busdetails?.data[0]?.busNumber}</th>
+        </tr>
+      </thead>
+      </table>
           <div class="flex justify-between mb-4">
             <div class="w-1/2 pr-2">
              
@@ -310,10 +321,9 @@ const Homepage = () => {
         ); // Save the PDF
       });
   };
-
+  const formattedDate = formatDateForDisplay(inputs.Tablemanuplation.date);
   const handleSendWhatsApp = (id, mobile, village) => {
     // Format date using the formatDateForDisplay function
-    const formattedDate = formatDateForDisplay(inputs.Tablemanuplation.date);
 
     // Message to send
     const message =
