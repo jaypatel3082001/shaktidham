@@ -332,9 +332,9 @@ const Homepage = () => {
     
     બુકિંગ તારીખ    : ${formattedDate}
     ટાઇમ              : 10:20 PM
-    ક્યા થી ક્યા      : ${village} થી સુરત
+    ક્યા થી ક્યા       : ${village} થી સુરત
     
-    બસ નંબર       : ${busdetails.data[0].busNumber}
+    બસ નંબર        : ${busdetails.data[0].busNumber}
     સીટ નંબર        : ${inputs.Tablemanuplation.seatnumber}
     રકમ               : ${busdetails.data[0].price}
     
