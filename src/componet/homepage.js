@@ -331,19 +331,19 @@ const Homepage = () => {
     ---શક્તિ ધામ---
     
     બુકિંગ તારીખ    : ${formattedDate}
-    ટાઇમ            : 10:20 PM
+    ટાઇમ              : 10:20 PM
     ક્યા થી ક્યા      : ${village} થી સુરત
     
     બસ નંબર       : ${busdetails.data[0].busNumber}
-    સીટ નંબર      : ${inputs.Tablemanuplation.seatnumber}
-    રકમ             : ${busdetails.data[0].price}
+    સીટ નંબર        : ${inputs.Tablemanuplation.seatnumber}
+    રકમ               : ${busdetails.data[0].price}
     
     પેસેર્જર મોબાઈલ નંબર : ${mobile}
     
     લોકેશન : ${busdetails.data[0].location}
     
     સુરત ઓફિસ મોબાઇલ નંબર :
-    9825450700
+    98254507000
     9825805971
     
     જસદણ ઓફિસ મોબાઇલ નંબર :
