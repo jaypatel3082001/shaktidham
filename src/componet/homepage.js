@@ -263,8 +263,9 @@ const Homepage = () => {
         <tr class=" ">
           <th class=" text-right pr-2  ">તારીખ:-</th>
           <th class=" text-left">${formattedDate}</th>
-          <th class=" text-right pr-2 ">બસ નંબર
-:-</th>
+          <th class=" text-right pr-2 ">ડ્રાઇવર:-</th>
+          <th class=" py-3 text-left  "> ${busdetails?.data[0]?.driver}</th>
+          <th class=" text-right pr-2 ">બસ નંબર:-</th>
           <th class=" py-3 text-left  "> ${busdetails?.data[0]?.busNumber}</th>
         </tr>
       </thead>

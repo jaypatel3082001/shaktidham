@@ -27,6 +27,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
     busNumber: "",
     location: "",
     price: "",
+    driver: "",
     date: date,
   });
 
@@ -71,6 +72,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
           busNumber: "",
           location: "",
           price: "",
+          driver: "",
           date: date,
         }); // Log API response
         showQuestion();
@@ -153,6 +155,22 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
                 onChange={handleChange}
                 value={data.location}
                 placeholder="Enter Location"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                required
+              />
+              <label
+                htmlFor="location"
+                className="text-left text-gray-700 font-bold block mt-4"
+              >
+                Driver:
+              </label>
+              <input
+                type="text"
+                id="driver"
+                name="driver"
+                onChange={handleChange}
+                value={data.driver}
+                placeholder="Enter driverName"
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
                 required
               />
