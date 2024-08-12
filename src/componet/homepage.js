@@ -11,17 +11,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDate, setSeatNumber, setPopbox } from "../Slice/redux";
 
 import Showbusnumber from "./showbusnumber";
+import Msgbox from "./msgbox";
 
 const Homepage = () => {
   const [display, setDisplay] = useState(false);
   const [tooltipId, setTooltipId] = useState(null);
   const [sortdata, setSortdata] = useState([]);
   const tooltipRef = useRef(null);
+  const [msgbox, setMsgbox] = useState(false);
   const [isloading, setIsloading] = useState(false); // Updated default state
   const [isDateSelected, setIsDateSelected] = useState(false); // New state for date selection
   const buttonRefs = useRef([]);
+  const [msgmdata, setMsgmdata] = useState([]);
   const [busdetails, setBusDetails] = useState([]);
   const dispatch = useDispatch();
+  const [data, setData] = useState({
+    pickup: "",
+    price: "",
+    time: "",
+    sitnumber: "",
+  });
   const navigate = useNavigate();
   const [popbox, setPopbox] = useState(false);
   const inputs = useSelector((state) => state.inputs);
@@ -323,22 +332,22 @@ const Homepage = () => {
       });
   };
   const formattedDate = formatDateForDisplay(inputs.Tablemanuplation.date);
-  const handleSendWhatsApp = (id, mobile, village) => {
+  const handleSendWhatsApp = (e) => {
     // Format date using the formatDateForDisplay function
-
+    e.preventDefault();
     // Message to send
     const message = `
     ---શક્તિ ધામ---
     
     બુકિંગ તારીખ    : ${formattedDate}
-    ટાઇમ              : 10:20 PM
-    ક્યા થી ક્યા       : ${village} થી સુરત
-    
+    ટાઇમ              : ${data.time}
+    ક્યા થી ક્યા       : ${msgmdata.vilage} થી સુરત
+    ક્યાંથી બેસવાનું     :${data.pickup}
     બસ નંબર        : ${busdetails.data[0].busNumber}
-    સીટ નંબર        : ${inputs.Tablemanuplation.seatnumber}
-    રકમ               : ${busdetails.data[0].price}
+    સીટ નંબર        : ${data.sitnumber}
+    રકમ               : ${data.price}
     
-    પેસેર્જર મોબાઈલ નંબર : ${mobile}
+    પેસેર્જર મોબાઈલ નંબર : ${msgmdata?.mobile}
     
     લોકેશન : ${busdetails.data[0].location}
     
@@ -358,7 +367,7 @@ const Homepage = () => {
     `;
 
     // List of mobile numbers to send the message
-    const mobileNumbers = [mobile];
+    const mobileNumbers = [msgmdata?.mobile];
 
     // Loop through each mobile number and open WhatsApp for each
     mobileNumbers.forEach((number) => {
@@ -367,11 +376,20 @@ const Homepage = () => {
       )}`;
       window.open(url, "_blank");
     });
+    setMsgbox(!msgbox);
   };
 
   const showQuestion = useCallback(() => {
     setPopbox(!popbox);
   });
+  const showQuestionsss = useCallback((mobile, vilage) => {
+    setMsgbox(!msgbox);
+    setMsgmdata({
+      vilage: vilage,
+      mobile: mobile,
+    });
+  });
+  console.log(msgmdata, "msgmdata");
   return (
     <div className="App p-4 md:p-6 lg:p-8 flex flex-col md:flex-row gap-4">
       <div className="flex justify-center">
@@ -492,8 +510,7 @@ const Homepage = () => {
                                   <li
                                     className="cursor-pointer hover:bg-blue-300 p-1 rounded text-black font-bold"
                                     onClick={() =>
-                                      handleSendWhatsApp(
-                                        item?._id,
+                                      showQuestionsss(
                                         item?.mobile,
                                         item?.vilage
                                       )
@@ -521,6 +538,13 @@ const Homepage = () => {
         popbox={popbox}
         busdetails={busdetails}
         handleDateChange={handleDateChange}
+      />
+      <Msgbox
+        showQuestionsss={showQuestionsss}
+        msgbox={msgbox}
+        handleSendWhatsApp={handleSendWhatsApp}
+        data={data}
+        setData={setData}
       />
     </div>
   );
