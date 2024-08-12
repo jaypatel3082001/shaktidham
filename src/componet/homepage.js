@@ -327,23 +327,35 @@ const Homepage = () => {
     // Format date using the formatDateForDisplay function
 
     // Message to send
-    const message =
-      `---શક્તિ ધામ---\n\n` +
-      `બુકિંગ તારીખ    : ${formattedDate}\n` +
-      `ટાઇમ          : 10:20 PM\n` +
-      `ક્યા થી ક્યા     : ${village} થી સુરત\n\n` +
-      `બસ નંબર       : ${busdetails.data[0].busNumber}\n` +
-      `સીટ નંબર      : ${inputs.Tablemanuplation.seatnumber}\n` +
-      `રકમ           : ${busdetails.data[0].price}\n\n\n` +
-      `પેસેર્જર મોબાઈલ નંબર : ${mobile}\n\n\n` +
-      `લોકેશન : ${busdetails.data[0].location}\n\n\n` +
-      `સુરત ઓફિસ મોબાઇલ નંબર :\n 9825450700\n` +
-      `9825805971\n` +
-      `જસદણ ઓફિસ મોબાઇલ નંબર : \n9909134545\n` +
-      `9879584545\n` +
-      `મોટા દેવળીયા ઓફિસ મોબાઇલ નંબર: 9825864672\n` +
-      `9586653535\n` +
-      `હેલ્પલાઇન નંબર: 8141814190`;
+    const message = `
+    ---શક્તિ ધામ---
+    
+    બુકિંગ તારીખ    : ${formattedDate}
+    ટાઇમ          : 10:20 PM
+    ક્યા થી ક્યા     : ${village} થી સુરત
+    
+    બસ નંબર       : ${busdetails.data[0].busNumber}
+    સીટ નંબર      : ${inputs.Tablemanuplation.seatnumber}
+    રકમ           : ${busdetails.data[0].price}
+    
+    પેસેર્જર મોબાઈલ નંબર : ${mobile}
+    
+    લોકેશન : ${busdetails.data[0].location}
+    
+    સુરત ઓફિસ મોબાઇલ નંબર :
+    9825450700
+    9825805971
+    
+    જસદણ ઓફિસ મોબાઇલ નંબર :
+    9909134545
+    9879584545
+    
+    મોટા દેવળીયા ઓફિસ મોબાઇલ નંબર:
+    9825864672
+    9586653535
+    
+    હેલ્પલાઇન નંબર: 8141814190
+    `;
 
     // List of mobile numbers to send the message
     const mobileNumbers = [mobile];
