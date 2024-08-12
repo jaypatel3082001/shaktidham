@@ -342,7 +342,7 @@ const Homepage = () => {
     બુકિંગ તારીખ    : ${formattedDate}
     ટાઇમ              : ${data.time}
     ક્યા થી ક્યા       : ${msgmdata.vilage} થી સુરત
-    ક્યાંથી બેસવાનું  :${data.pickup}
+    ક્યાંથી બેસવાનું  : ${data.pickup}
     બસ નંબર        : ${busdetails.data[0].busNumber}
     સીટ નંબર        : ${data.sitnumber}
     રકમ               : ${data.price}
