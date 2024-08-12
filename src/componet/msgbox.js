@@ -80,7 +80,7 @@ function Msgbox({
                 રકમ
               </label>
               <input
-                type="text"
+                type="number"
                 id="price"
                 name="price"
                 onChange={handleChange}
@@ -95,7 +95,7 @@ function Msgbox({
                 સમય
               </label>
               <input
-                type="text"
+                type="time"
                 id="time"
                 name="time"
                 onChange={handleChange}
