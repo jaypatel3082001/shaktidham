@@ -209,7 +209,7 @@ const Homepage = () => {
                         <div>${item.mobile || ""}</div>
                       `
                           : `
-                        <div class="font-bold text-lg">${seatNumber}</div>
+                        <div class="font-bold text-lg text-red-500">${seatNumber}</div>
                         <div></div>
                         <div></div>
                         <div></div>
