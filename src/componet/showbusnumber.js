@@ -31,6 +31,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
     price: "",
     driver: "",
     date: date,
+   
   });
 
   const [error, setError] = useState(null);
@@ -152,7 +153,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
                     type="text"
                     placeholder="Enter your Bus Number"
                     className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
-                    value={data.busNumber}
+                    value={data.busNumber === "other" ? "" : data.busNumber}
                     onChange={handleOtherInputChange}
                     required
                   />
