@@ -201,7 +201,9 @@ const Homepage = () => {
                       ${
                         item
                           ? `
-                        <div class="font-bold text-lg">${item.seatNumber}</div>
+                        <div class="font-bold text-lg text-red-500">${
+                          item.seatNumber
+                        }</div>
                         <div>${item.vilage || ""}</div>
                         <div>${item.name || ""}</div>
                         <div>${item.mobile || ""}</div>
@@ -266,8 +268,9 @@ const Homepage = () => {
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
       </head>
       <body class="font-sans m-0 p-0">
-        <div class="container mx-auto max-w-4xl p-4">
-      <table class="min-w-full     mb-3">
+        <div class="container mx-auto max-w-4xl px-4">
+        <div class="text-3xl text-red-500 flex justify-center font-extrabold mb-3">શક્તિધામ ટ્રાવેલ્સ</div>
+      <table class="min-w-full mb-3">
       <thead>
         <tr class=" ">
           <th class=" text-right pr-2  ">તારીખ:-</th>
