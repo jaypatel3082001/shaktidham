@@ -6,6 +6,7 @@ import { ReactComponent as Edit } from "../svg/edit.svg";
 function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
   const inputs = useSelector((state) => state.inputs);
   const location = useLocation();
+  const [showOtherInput, setShowOtherInput] = useState(false);
 
   const formatDateForDisplay = (date) => {
     if (!date) return "";
@@ -21,6 +22,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
     const [day, month, year] = date.split("/");
     return `${year}-${month}-${day}`;
   };
+
   const date = formatDateForDisplay(inputs.Tablemanuplation.date);
 
   const [data, setData] = useState({
@@ -31,7 +33,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
     date: date,
   });
 
-  const [error, setError] = useState(null); // Added state for error handling
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +41,17 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
       ...prevData,
       [name]: value,
       date: date,
+    }));
+
+    if (name === "busNumber") {
+      setShowOtherInput(value === "other");
+    }
+  };
+
+  const handleOtherInputChange = (e) => {
+    setData((prevData) => ({
+      ...prevData,
+      busNumber: e.target.value,
     }));
   };
 
@@ -74,7 +87,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
           price: "",
           driver: "",
           date: date,
-        }); // Log API response
+        });
         showQuestion();
         handleDateChange(inputs.Tablemanuplation.date);
       } else {
@@ -110,22 +123,41 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
               </div>
             </div>
             <form onSubmit={handleSubmit}>
-              <label
-                htmlFor="busNumber"
-                className="text-left text-gray-700 font-bold block"
-              >
-                Bus Number:
-              </label>
-              <input
-                type="text"
-                id="busNumber"
-                name="busNumber"
-                onChange={handleChange}
-                value={data.busNumber}
-                placeholder="Enter your Bus Number"
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
-                required
-              />
+              <div>
+                <label
+                  htmlFor="busNumber"
+                  className="text-left text-gray-700 font-bold block"
+                >
+                  Bus Number:
+                </label>
+                <select
+                  id="busNumber"
+                  name="busNumber"
+                  onChange={handleChange}
+                  value={data.busNumber}
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                  // required
+                >
+                  <option value="">Select your Bus Number</option>
+                  <option value="GJ-05-CW-9027">GJ-05-CW-9027</option>
+                  <option value="GJ-05-CW-9927">GJ-05-CW-9927</option>
+                  <option value="GJ-14-Z-9090">GJ-14-Z-9090</option>
+                  <option value="GJ-14-Z-9009">GJ-14-Z-9009</option>
+                  <option value="GJ-05-BZ-0999">GJ-05-BZ-0999</option>
+                  <option value="GJ-05-BZ-9999">GJ-05-BZ-9999</option>
+                  <option value="other">Other</option>
+                </select>
+                {showOtherInput && (
+                  <input
+                    type="text"
+                    placeholder="Enter your Bus Number"
+                    className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                    value={data.busNumber}
+                    onChange={handleOtherInputChange}
+                    required
+                  />
+                )}
+              </div>
               <label
                 htmlFor="price"
                 className="text-left text-gray-700 font-bold block mt-4"
@@ -159,7 +191,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
                 required
               />
               <label
-                htmlFor="location"
+                htmlFor="driver"
                 className="text-left text-gray-700 font-bold block mt-4"
               >
                 Driver:
@@ -170,7 +202,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
                 name="driver"
                 onChange={handleChange}
                 value={data.driver}
-                placeholder="Enter driverName"
+                placeholder="Enter Driver Name"
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
                 required
               />
@@ -188,7 +220,6 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
                 value={date}
                 placeholder="Enter Date (dd/mm/yyyy)"
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 mt-1"
-                // required
               />
               <div className="flex space-x-2 mt-3">
                 <button
