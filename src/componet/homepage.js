@@ -238,10 +238,10 @@ const Homepage = () => {
                   const item = items[index];
                   return item
                     ? `
-                      <td class="border border-black p-2 text-center w-1/6 bg-red-500 text-white text-bold">${item.seatNumber}</td>
+                      <td class="border border-black p-2 text-center w-1/6 ">${item.seatNumber}</td>
                       <td class="border border-black p-2 text-left ">${item.name} -- ${item.vilage}</td>`
                     : `
-                      <td class="border border-black p-2 text-center w-1/6 bg-red-500 text-white text-bold">${seatNumber}</td>
+                      <td class="border border-black p-2 text-center w-1/6 ">${seatNumber}</td>
                       <td class="border border-black p-2 text-center "></td>`;
                 })
                 .join("")}
