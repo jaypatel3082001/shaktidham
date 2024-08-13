@@ -377,6 +377,12 @@ const Homepage = () => {
       window.open(url, "_blank");
     });
     setMsgbox(!msgbox);
+    setData({
+      pickup: "",
+      price: "",
+      time: "",
+      sitnumber: "",
+    });
   };
 
   const showQuestion = useCallback(() => {
