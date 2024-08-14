@@ -330,7 +330,9 @@ const Homepage = () => {
       .then((pdf) => {
         pdf.autoPrint(); // Optional: automatically open the print dialog
         pdf.save(
-          `${formatDateForDisplay(inputs.Tablemanuplation.date)}shaktidham.pdf`
+          `${formatDateForDisplay(
+            inputs.Tablemanuplation.date
+          )}શક્તિધામ ટ્રાવેલ્સ.pdf`
         ); // Save the PDF
       });
   };
