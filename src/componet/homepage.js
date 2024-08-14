@@ -239,7 +239,7 @@ const Homepage = () => {
                   return item
                     ? `
                       <td class="border border-black p-2 text-center w-1/6 ">${item.seatNumber}</td>
-                      <td class="border border-black p-2 text-left ">${item.name} -- ${item.vilage}</td>`
+                      <td class="border border-black p-2 text-left ">${item.vilage}--${item.name}  </td>`
                     : `
                       <td class="border border-black p-2 text-center w-1/6 ">${seatNumber}</td>
                       <td class="border border-black p-2 text-center "></td>`;
