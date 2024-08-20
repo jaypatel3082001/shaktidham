@@ -204,9 +204,13 @@ const Homepage = () => {
                         <div class="font-bold text-lg text-red-500">${
                           item.seatNumber
                         }</div>
-                        <div class="font-bold">${item.vilage || ""}</div>
-                        <div class="font-bold">${item.name || ""}</div>
-                        <div class="font-bold">${item.mobile || ""}</div>
+                        <div class="font-bold text-lg">${
+                          item.vilage || ""
+                        }</div>
+                        <div class="font-bold text-lg">${item.name || ""}</div>
+                        <div class="font-bold text-lg">${
+                          item.mobile || ""
+                        }</div>
                       `
                           : `
                         <div class="font-bold text-lg text-red-500">${seatNumber}</div>
