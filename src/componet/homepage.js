@@ -180,7 +180,6 @@ const Homepage = () => {
       ["કેબિન-3"],
       ["કેબિન-4"],
       ["કેબિન-5"],
-      ["કેબિન-6"],
     ];
 
     // Function to generate table rows from labels or numbers
@@ -197,7 +196,7 @@ const Homepage = () => {
                 .map((seatNumber, index) => {
                   const item = items[index];
                   return `
-                  <td class="border border-black p-2 text-center h-[118px] w-28">
+                   <td class="border border-black p-2 text-center h-[118px] w-28">
                       ${
                         item
                           ? `
