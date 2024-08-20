@@ -204,9 +204,9 @@ const Homepage = () => {
                         <div class="font-bold text-lg text-red-500">${
                           item.seatNumber
                         }</div>
-                        <div>${item.vilage || ""}</div>
-                        <div>${item.name || ""}</div>
-                        <div>${item.mobile || ""}</div>
+                        <div class="font-bold">${item.vilage || ""}</div>
+                        <div class="font-bold">${item.name || ""}</div>
+                        <div class="font-bold">${item.mobile || ""}</div>
                       `
                           : `
                         <div class="font-bold text-lg text-red-500">${seatNumber}</div>
@@ -239,7 +239,7 @@ const Homepage = () => {
                   return item
                     ? `
                       <td class="border border-black p-2 text-center w-1/6 ">${item.seatNumber}</td>
-                      <td class="border border-black p-2 text-left ">${item.vilage}--${item.name}  </td>`
+                      <td class="border border-black p-2 text-left font-bold ">${item.vilage}--${item.name}  </td>`
                     : `
                       <td class="border border-black p-2 text-center w-1/6 ">${seatNumber}</td>
                       <td class="border border-black p-2 text-center "></td>`;
