@@ -207,7 +207,7 @@ const Homepage = () => {
                         <div class="font-bold text-lg">${
                           item.vilage || ""
                         }</div>
-                        <div class="font-bold text-lg">${item.name || ""}</div>
+                        <div class="font-bold ">${item.name || ""}</div>
                         <div class="font-bold text-lg">${
                           item.mobile || ""
                         }</div>
