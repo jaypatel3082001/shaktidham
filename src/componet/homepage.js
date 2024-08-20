@@ -197,7 +197,7 @@ const Homepage = () => {
                 .map((seatNumber, index) => {
                   const item = items[index];
                   return `
-                    <td class="border border-black p-2 text-center h-32 w-28  ">
+                  <td class="border border-black p-2 text-center h-[118px] w-28">
                       ${
                         item
                           ? `
@@ -288,8 +288,8 @@ const Homepage = () => {
               <table class="min-w-full border-collapse border border-black">
                 <thead>
                   <tr>
-                    <th class="bg-red-500 text-white ">ઉપર  </th>
-                    <th class="bg-red-500 text-white">નીચે</th>
+                    <th class="bg-red-500 text-white p-2">ઉપર  </th>
+                    <th class="bg-red-500 text-white p-2">નીચે</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -301,8 +301,8 @@ const Homepage = () => {
               <table class="min-w-full border-collapse border border-black">
                 <thead>
                   <tr>
-                    <th class="bg-red-500 text-white">નીચે</th>
-                    <th class="bg-red-500 text-white">ઉપર</th>
+                    <th class="bg-red-500 text-white p-2">નીચે</th>
+                    <th class="bg-red-500 text-white p-2">ઉપર</th>
                   </tr>
                 </thead>
                 <tbody>
