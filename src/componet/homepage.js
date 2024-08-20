@@ -180,7 +180,6 @@ const Homepage = () => {
       ["કેબિન-3"],
       ["કેબિન-4"],
       ["કેબિન-5"],
-      ["કેબિન-6"],
     ];
 
     // Function to generate table rows from labels or numbers
