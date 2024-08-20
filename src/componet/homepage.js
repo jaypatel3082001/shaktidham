@@ -197,7 +197,7 @@ const Homepage = () => {
                 .map((seatNumber, index) => {
                   const item = items[index];
                   return `
-                   <td class="border border-black  text-center h-[120px] w-28">
+                    <td class="border border-black text-center" style="height: 120px; width: 112px;">
                       ${
                         item
                           ? `
