@@ -474,9 +474,7 @@ const Homepage = () => {
           <Vector />
         </div>
       </div>
-      {!isDateSelected && !isloading ? (
-        <div className="text-center py-4">Select Date</div>
-      ) : isloading ? (
+      {isloading ? (
         <div className="text-center py-4">Loading...</div>
       ) : (
         <div>
