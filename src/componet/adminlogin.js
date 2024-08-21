@@ -167,7 +167,7 @@ const Adminlogin = () => {
     //     </form>
     //   </div>
     // </div>
-    <div className="flex flex-col lg:flex-row items-center justify-between p-4">
+    <div className="flex flex-col lg:flex-row items-center justify-between ">
       <div className="w-full lg:w-1/3 mb-6 lg:mb-0">
         <img src={Bus} alt="" className="w-full h-auto" />
       </div>
@@ -188,7 +188,7 @@ const Adminlogin = () => {
               htmlFor="email"
               className="text-left text-gray-700 font-bold block"
             >
-              Email
+              Username
             </label>
             <input
               type="text"
