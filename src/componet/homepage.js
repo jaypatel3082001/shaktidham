@@ -600,7 +600,7 @@ const Homepage = () => {
     //   />
     // </div>
     <div>
-      <div className="flex flex-col lg:flex-row items-center justify-between">
+      <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen">
         {!isDateSelected && (
           <div className="w-full mb-6 lg:mb-0 lg:w-1/3 flex justify-center lg:justify-start">
             <img src={Bus} alt="" className="w-full h-auto object-cover" />
@@ -642,6 +642,7 @@ const Homepage = () => {
           </div>
         )}
       </div>
+
       <div className="App p-2 md:p-6 lg:p-8 flex flex-col gap-4 md:flex-row">
         {!isDateSelected && !isloading ? (
           <div className="text-center"></div>
