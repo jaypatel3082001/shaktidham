@@ -372,7 +372,8 @@ const Homepage = () => {
     
     હેલ્પલાઇન નંબર: 8141814190
 
-    બસનું લોકેશન જોવા માટે આ Whatapp નંબર સેવ કરો
+    બસનું લોકેશન જોવા માટે આ Whatapp નંબર 
+    સેવ કરો
     `;
 
     // List of mobile numbers to send the message
