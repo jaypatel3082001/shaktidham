@@ -176,7 +176,7 @@ const Adminlogin = () => {
         <div className="main rounded-lg p-6 sm:p-8 md:p-10 w-full sm:w-80 md:w-96">
           {showerror && (
             <div className="text-red-500 font-bold text-center mb-3">
-              Invalid email or password
+              Invalid UserName or password
             </div>
           )}
           <h1 className="text-black text-2xl sm:text-3xl mb-4 sm:mb-6">
@@ -196,7 +196,7 @@ const Adminlogin = () => {
               onChange={handleChange}
               value={inputlogindata.email}
               id="email"
-              placeholder="Enter your Email"
+              placeholder="Enter your Username"
               className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
               required
             />
@@ -230,7 +230,7 @@ const Adminlogin = () => {
         </div>
       </div>
 
-      <div className="w-full lg:w-1/3 mt-6 lg:mt-0">
+      <div className="w-full lg:w-1/3  lg:mt-0">
         <Vector />
       </div>
     </div>
