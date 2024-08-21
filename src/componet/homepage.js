@@ -607,33 +607,38 @@ const Homepage = () => {
           </div>
         )}
 
-        <div className="w-full mb-6 lg:mb-0 lg:w-1/3 flex justify-center pt-2">
-          <LocalizationProvider
-            dateAdapter={AdapterLuxon}
-            adapterLocale="en-gb"
-          >
-            <DatePicker
-              value={inputs.Tablemanuplation.date}
-              onChange={(date) => handleDateChange(date)}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  className="w-full"
-                  variant="outlined"
-                  size="small"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <Celender className="w-6 h-6 text-red-500" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  helperText={null}
-                  value={formatDateForDisplay(inputs.Tablemanuplation.date)}
-                />
-              )}
-            />
-          </LocalizationProvider>
+        <div className="w-full mb-6 lg:mb-0 lg:w-1/3 flex flex-col item-center pt-2">
+          <div className="text-black font-bold text-xl mb-5">
+            બુકિંગ કરવા માટે તારીખ સીલેક્ટ કરો
+          </div>
+          <div>
+            <LocalizationProvider
+              dateAdapter={AdapterLuxon}
+              adapterLocale="en-gb"
+            >
+              <DatePicker
+                value={inputs.Tablemanuplation.date}
+                onChange={(date) => handleDateChange(date)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    className="w-full"
+                    variant="outlined"
+                    size="small"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Celender className="w-6 h-6 text-red-500" />
+                        </InputAdornment>
+                      ),
+                    }}
+                    helperText={null}
+                    value={formatDateForDisplay(inputs.Tablemanuplation.date)}
+                  />
+                )}
+              />
+            </LocalizationProvider>
+          </div>
         </div>
 
         {!isDateSelected && (
