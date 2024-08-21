@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import html2pdf from "html2pdf.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setDate, setSeatNumber, setPopbox } from "../Slice/redux";
+import Bus from "./../img/Adminimg.jpg";
+import { ReactComponent as Vector } from "../svg/Vector.svg";
 
 import Showbusnumber from "./showbusnumber";
 import Msgbox from "./msgbox";
@@ -402,7 +404,7 @@ const Homepage = () => {
   console.log(msgmdata, "msgmdata");
   return (
     <div className="App p-4 md:p-6 lg:p-8 flex flex-col md:flex-row gap-4">
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <div>
           <LocalizationProvider
             dateAdapter={AdapterLuxon}
@@ -431,6 +433,46 @@ const Homepage = () => {
             />
           </LocalizationProvider>
         </div>{" "}
+      </div> */}
+      <div className="flex flex-col lg:flex-row items-center justify-between ">
+        <div className="w-full lg:w-1/3 mb-6 lg:mb-0">
+          <img src={Bus} alt="" className="w-full h-auto" />
+        </div>
+
+        <div className="flex justify-center">
+          <div>
+            <LocalizationProvider
+              dateAdapter={AdapterLuxon}
+              adapterLocale="en-gb"
+            >
+              <DatePicker
+                value={inputs.Tablemanuplation.date}
+                onChange={(date) => handleDateChange(date)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    className="w-full"
+                    variant="outlined"
+                    size="small"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Celender className="w-6 h-6 text-red-500" />
+                        </InputAdornment>
+                      ),
+                    }}
+                    helperText={null}
+                    value={formatDateForDisplay(inputs.Tablemanuplation.date)}
+                  />
+                )}
+              />
+            </LocalizationProvider>
+          </div>{" "}
+        </div>
+
+        <div className="w-full lg:w-1/3  lg:mt-0">
+          <Vector />
+        </div>
       </div>
       {!isDateSelected && !isloading ? (
         <div className="text-center py-4">Select Date</div>
