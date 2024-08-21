@@ -221,7 +221,7 @@ const Adminlogin = () => {
             <div className="flex justify-center mt-6">
               <button
                 type="submit"
-                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition duration-300 w-full"
+                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-800 transition duration-300 w-full"
               >
                 Submit
               </button>

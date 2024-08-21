@@ -400,9 +400,9 @@ const Homepage = () => {
       vilage: vilage,
       mobile: mobile,
     });
-    setDisplay(!display);
+    setDisplay(false);
   });
-  console.log(msgmdata, "msgmdata");
+
   return (
     <div>
       <div
