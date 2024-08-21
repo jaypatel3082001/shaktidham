@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../cssfile/Admin.css";
-import Bus from "./../img/Adminimg.jpg";
+import Bus from "./../img/image 4.png";
 import { ReactComponent as Vector } from "../svg/Vector.svg";
 
 const Adminlogin = () => {
