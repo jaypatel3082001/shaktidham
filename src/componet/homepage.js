@@ -600,14 +600,14 @@ const Homepage = () => {
     //   />
     // </div>
     <div>
-      <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen">
+      <div className="flex flex-col lg:flex-row items-center justify-between">
         {!isDateSelected && (
-          <div className="w-full mb-6 lg:mb-0 lg:w-1/3 flex justify-center lg:justify-start">
+          <div className="w-full mb-32 lg:mb-0 lg:w-1/3 flex justify-center lg:justify-start">
             <img src={Bus} alt="" className="w-full h-auto object-cover" />
           </div>
         )}
 
-        <div className="w-full mb-6 lg:mb-0 lg:w-1/3 flex flex-col item-center pt-2">
+        <div className="w-full mb-6 lg:mb-0  flex flex-col items-center pt-2">
           <div className="text-black font-bold text-xl mb-5">
             બુકિંગ કરવા માટે તારીખ સીલેક્ટ કરો
           </div>
@@ -642,7 +642,7 @@ const Homepage = () => {
         </div>
 
         {!isDateSelected && (
-          <div className="w-full lg:w-1/3 lg:mt-0 flex justify-center lg:justify-end">
+          <div className="w-full lg:w-1/3 lg:mt-0 flex justify-center lg:justify-end mt-24">
             <Vector />
           </div>
         )}
