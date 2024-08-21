@@ -111,7 +111,7 @@ const Adminlogin = () => {
           backgroundImage: `url(${require("./../img/bus.jpg")})`,
         }}
       ></div>
-      <div className="relative main bg-gray-300 rounded-lg shadow-md p-10 w-96 z-10">
+      <div className="relative main bg-gray-300 rounded-lg shadow-md p-10 w-96 z-10 mt-32">
         {showerror && (
           <div className="text-red-500 font-bold text-center mb-3">
             Invalid email or password
