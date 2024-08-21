@@ -124,7 +124,7 @@ const Adminlogin = () => {
             htmlFor="email"
             className="text-left text-gray-700 font-bold block mb-2"
           >
-            Email
+            UserName
           </label>
           <input
             type="text"
