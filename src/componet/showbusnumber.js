@@ -31,7 +31,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
     price: "",
     driver: "",
     date: date,
-   
+    bustime: "",
   });
 
   const [error, setError] = useState(null);
@@ -88,6 +88,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
           price: "",
           driver: "",
           date: date,
+          bustime: "",
         });
         showQuestion();
         handleDateChange(inputs.Tablemanuplation.date);
@@ -129,7 +130,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
                   htmlFor="busNumber"
                   className="text-left text-gray-700 font-bold block"
                 >
-                  Bus Number:
+                  બસ નંબર:
                 </label>
                 <select
                   id="busNumber"
@@ -179,7 +180,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
                 htmlFor="location"
                 className="text-left text-gray-700 font-bold block mt-4"
               >
-                Location:
+                લોકેશન:
               </label>
               <input
                 type="text"
@@ -195,7 +196,7 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
                 htmlFor="driver"
                 className="text-left text-gray-700 font-bold block mt-4"
               >
-                Driver:
+                ડ્રાઈવર:
               </label>
               <input
                 type="text"
@@ -208,10 +209,26 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
                 required
               />
               <label
+                htmlFor="bustime"
+                className="text-left text-gray-700 font-bold block mt-4"
+              >
+                બસ ઉપાડવાનો સમય:
+              </label>
+              <input
+                type="text"
+                id="bustime"
+                name="bustime"
+                onChange={handleChange}
+                value={data.bustime}
+                placeholder="Enter bustime"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
+                required
+              />
+              <label
                 htmlFor="date"
                 className="text-left text-gray-700 font-bold block mt-4"
               >
-                Date:
+                તારીખ:
               </label>
               <input
                 type="text"
