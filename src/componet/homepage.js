@@ -278,7 +278,7 @@ const Homepage = () => {
       <th class="text-right pr-2">ડ્રાઇવર:-${busdetails?.data[0]?.driver}</th>
     </tr>
     <tr class="flex justify-between">
-      <th class="text-right pr-2">ઉપડવાનો સમય:-${busdetails?.data[0]?.time}</th>
+      <th class="text-right pr-2">ઉપડવાનો સમય:-${busdetails?.data[0]?.bustime}</th>
       <th class="text-right pr-2">બસ નંબર:-${busdetails?.data[0]?.busNumber}</th>
     </tr>
   </thead>
