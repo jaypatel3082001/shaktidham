@@ -260,9 +260,9 @@ function Showbusnumber({ showQuestion, popbox, busdetails, handleDateChange }) {
                     </td>
                   </tr>
                   <tr className="border-b hover:bg-gray-50">
-                    <td className="p-4">Price</td>
+                    <td className="p-4">Driver</td>
                     <td className="p-4">
-                      {busdetails?.data?.[0]?.price || ""}
+                      {busdetails?.data?.[0]?.driver || ""}
                     </td>
                   </tr>
                 </tbody>
