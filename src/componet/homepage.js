@@ -270,19 +270,20 @@ const Homepage = () => {
       </head>
       <body class="font-sans m-0 p-0">
         <div class="container mx-auto max-w-4xl px-4">
-        <div class="text-3xl text-red-500 flex justify-center font-extrabold mb-3">શક્તિધામ ટ્રાવેલ્સ</div>
-      <table class="min-w-full mb-3">
-      <thead>
-        <tr class=" ">
-          <th class=" text-right pr-2  ">તારીખ:-</th>
-          <th class=" text-left">${formattedDate}</th>
-          <th class=" text-right pr-2 ">ડ્રાઇવર:-</th>
-          <th class=" py-3 text-left  "> ${busdetails?.data[0]?.driver}</th>
-          <th class=" text-right pr-2 ">બસ નંબર:-</th>
-          <th class=" py-3 text-left  "> ${busdetails?.data[0]?.busNumber}</th>
-        </tr>
-      </thead>
-      </table>
+        <div class="text-3xl text-red-500 flex justify-center font-extrabold mb-5">શક્તિધામ ટ્રાવેલ્સ</div>
+    <table class="min-w-full mb-3">
+  <thead>
+    <tr class="flex justify-between">
+      <th class="text-right pr-2">તારીખ:- ${formattedDate}</th>
+      <th class="text-right pr-2">ડ્રાઇવર:-${busdetails?.data[0]?.driver}</th>
+    </tr>
+    <tr class="flex justify-between">
+      <th class="text-right pr-2">ઉપડવાનો સમય:-${busdetails?.data[0]?.time}</th>
+      <th class="text-right pr-2">બસ નંબર:-${busdetails?.data[0]?.busNumber}</th>
+    </tr>
+  </thead>
+</table>
+
           <div class="flex justify-between mb-4">
             <div class="w-1/2 pr-2">
              
@@ -370,6 +371,9 @@ const Homepage = () => {
     9586653535
     
     હેલ્પલાઇન નંબર: 8141814190
+
+    બસનું લોકેશન જોવા માટે આ Whatapp નંબર 
+    સેવ કરો
     `;
 
     // List of mobile numbers to send the message
